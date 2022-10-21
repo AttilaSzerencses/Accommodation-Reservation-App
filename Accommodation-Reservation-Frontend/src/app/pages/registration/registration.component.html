@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onRegistration()" >
+      <h2>Registration</h2>
+      <mat-form-field class="ng-form">
+        <input matInput type="text" placeholder="Username" formControlName="username" required="true">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email" formControlName="email" required="true">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" formControlName="password" required="true">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password Again" formControlName="rePassword" required="true">
+      </mat-form-field>
+      <button [disabled]="signUpForm.invalid" mat-raised-button color="primary" type="submit" >Registration</button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -12,10 +12,13 @@ public class Person implements Serializable {
     @GeneratedValue
     @Column(nullable = false, updatable = false)
     private int id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
     private String firstName;
     private String lastName;
+    @Column(nullable = false)
     private String email;
     private String phone;
 
