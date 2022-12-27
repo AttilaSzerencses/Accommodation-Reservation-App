@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { PersonService } from '../services/person.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,9 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  constructor(private breakpointObserver: BreakpointObserver) { }
-
+  constructor(private breakpointObserver: BreakpointObserver, private personService: PersonService, private router: Router) { }
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -19,6 +19,15 @@ export class MenuComponent implements OnInit {
     );
 
   ngOnInit(): void {
+  }
+
+  public isAuthenticated(){
+    return this.personService.isLoggedIn();
+  }
+
+  public logout(){
+    localStorage.clear();
+    this.router.navigate(['/main']);
   }
 
 }

@@ -3,6 +3,8 @@ import { PersonService } from 'src/app/shared/services/person.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Person } from 'src/app/shared/models/person';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     rePassword: new FormControl()
   });
 
-  constructor(private personService: PersonService) { }
+  constructor(private personService: PersonService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,16 +34,34 @@ export class RegistrationComponent implements OnInit {
       lastName: " ",
       phone: " "
     };
-    this.personService.addPerson(person).subscribe(
-      (respone: Person) => {
-        console.log(respone);
+    this.personService.registration(person).subscribe(
+      (response: any) => {
+        console.log(response);
         this.signUpForm.reset();
+        this.succesAlert();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
-        this.signUpForm.reset();
+        this.errorAlert();
       }
     )
+  }
+
+  public succesAlert(){
+    Swal.fire({
+      icon: 'success',
+      title: 'Successful registration! You will be redirected to the main page.',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate(['/main'])
+  }
+
+  public errorAlert(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Error! IDE JÖN A HTTP ERROR RESPONSE TEXT",
+    })
   }
 
 }

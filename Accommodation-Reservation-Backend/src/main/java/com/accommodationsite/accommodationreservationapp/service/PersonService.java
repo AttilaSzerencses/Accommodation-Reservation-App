@@ -4,20 +4,22 @@ import com.accommodationsite.accommodationreservationapp.exception.UserNotFoundE
 import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class PersonService {
-    private final PersonRepository personRepository;
+    @Autowired
+    private PersonRepository personRepository;
+
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    private PasswordEncoder passwordEncoder;
 
     public Person addPerson(Person person){
+        person.setPassword(getEncodedPassword(person.getPassword()));
+        person.setRole("user");
         return personRepository.save(person);
     }
 
@@ -29,12 +31,20 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Person findPersonById(int id){
-       return personRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User by id "+id+" was not found"));
+    public Person findPersonByUserName(String userName){
+       return personRepository.findByUsername(userName).orElse(null);
     }
 
-    public void deletePerson(int id){
-        personRepository.deleteById(id);
+    public Person findPersonByEmail(String email){
+        return personRepository.findByEmail(email).orElse(null);
+    }
+
+    public void deletePerson(String userName){
+        personRepository.deleteByUsername(userName);
+    }
+
+    public String getEncodedPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
 }

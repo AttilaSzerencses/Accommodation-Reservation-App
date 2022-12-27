@@ -2,17 +2,16 @@ package com.accommodationsite.accommodationreservationapp.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Data
 public class Person implements Serializable {
     @Id
     @GeneratedValue
@@ -27,4 +26,5 @@ public class Person implements Serializable {
     @Column(nullable = false)
     private String email;
     private String phone;
+    private String role;
 }

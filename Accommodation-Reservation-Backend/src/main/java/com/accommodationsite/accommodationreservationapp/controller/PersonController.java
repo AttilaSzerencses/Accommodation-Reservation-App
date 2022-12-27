@@ -2,21 +2,18 @@ package com.accommodationsite.accommodationreservationapp.controller;
 
 import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
 @RequestMapping("/person")
 public class PersonController {
-    private final PersonService personService;
-
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
+    @Autowired
+    private PersonService personService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Person>> getAllPersons() {
@@ -24,16 +21,23 @@ public class PersonController {
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Person> getPerson(@PathVariable("id") int id) {
-        Person person = personService.findPersonById(id);
+    @GetMapping("/find/{userName}")
+    public ResponseEntity<Person> getPerson(@PathVariable("userName") String userName) {
+        Person person = personService.findPersonByUserName(userName);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-        Person newPerson = personService.addPerson(person);
-        return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
+    @PostMapping({"/registration"})
+    public ResponseEntity<String> registerNewUser(@RequestBody Person person) {
+
+        if (personService.findPersonByUserName(person.getUsername()) != null){
+            return new ResponseEntity<>("The username already exists!",HttpStatus.BAD_REQUEST);
+        } else if(personService.findPersonByEmail(person.getEmail()) != null){
+            return new ResponseEntity<>("The email address already exists!",HttpStatus.BAD_REQUEST);
+        } else {
+            personService.addPerson(person);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping("/update")
@@ -42,9 +46,9 @@ public class PersonController {
         return new ResponseEntity<>(updatePerson, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePerson(@PathVariable("id") int id) {
-        personService.deletePerson(id);
+    @DeleteMapping("/delete/{userName}")
+    public ResponseEntity<?> deletePerson(@PathVariable("userName") String userName) {
+        personService.deletePerson(userName);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
