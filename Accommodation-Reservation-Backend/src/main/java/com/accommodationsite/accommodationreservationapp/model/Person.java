@@ -4,18 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Data
 public class Person implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
     private String username;
@@ -27,4 +24,12 @@ public class Person implements Serializable {
     private String email;
     private String phone;
     private String role;
+    //Egy darab felhasználóhoz egy darab address tartozhat!
+    @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+    //Egy darab felhasználóhoz, egy darab hotel tartozhat.
+    @OneToOne(targetEntity = Accommodation.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "own_accommodation_id", referencedColumnName = "id")
+    private Accommodation accommodation;
 }

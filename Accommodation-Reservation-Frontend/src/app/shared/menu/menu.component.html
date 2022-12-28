@@ -10,6 +10,8 @@
       <a mat-list-item routerLink="/login" *ngIf="!this.isAuthenticated()">Login</a>
       <a mat-list-item routerLink="/registration" *ngIf="!this.isAuthenticated()">Registration</a>
       <a mat-list-item routerLink="/main" onclick="logout()" *ngIf="this.isAuthenticated()">Logout</a>
+      <a routerLink="/profile" *ngIf="this.isAuthenticated()"><mat-icon>account_circle</mat-icon></a>
+      <mat-icon>account_circle</mat-icon>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -24,10 +26,11 @@
       <span>Accommodation Reservation</span>
       <span class="spacer"></span>
       <mat-nav-list [ngClass]="{hidden: !(isHandset$ | async) === false}">
-        <a routerLink="/main" *ngIf="!this.isAuthenticated()">Main Page</a>
+        <a routerLink="/main">Main Page</a>
         <a routerLink="/login" *ngIf="!this.isAuthenticated()">Login</a>
         <a routerLink="/registration" *ngIf="!this.isAuthenticated()">Registration</a>
-        <a mat-list-item (click)="this.logout()" *ngIf="this.isAuthenticated()">Logout</a>
+        <a routerLink="/main" (click)="this.logout()" *ngIf="this.isAuthenticated()">Logout</a>
+        <a routerLink="/profile" *ngIf="this.isAuthenticated()"><mat-icon>account_circle</mat-icon></a>
       </mat-nav-list>
     </mat-toolbar>
     <ng-content></ng-content>

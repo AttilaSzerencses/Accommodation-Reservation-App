@@ -1,6 +1,5 @@
 package com.accommodationsite.accommodationreservationapp.service;
 
-import com.accommodationsite.accommodationreservationapp.exception.UserNotFoundException;
 import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,8 @@ public class PersonService {
         return personRepository.save(person);
     }
 
+    public Person findPersonById(int id){ return personRepository.findById(id).orElse(null); }
+
     public Person findPersonByUserName(String userName){
        return personRepository.findByUsername(userName).orElse(null);
     }
@@ -39,9 +40,11 @@ public class PersonService {
         return personRepository.findByEmail(email).orElse(null);
     }
 
-    public void deletePerson(String userName){
+    public void deletePersonByUserName(String userName){
         personRepository.deleteByUsername(userName);
     }
+
+    public void deletePersonById(int id){ personRepository.deleteById(id); }
 
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);

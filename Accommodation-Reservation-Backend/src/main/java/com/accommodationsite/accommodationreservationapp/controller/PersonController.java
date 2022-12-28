@@ -21,9 +21,21 @@ public class PersonController {
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{userName}")
-    public ResponseEntity<Person> getPerson(@PathVariable("userName") String userName) {
+    @GetMapping("/findByUserName/{userName}")
+    public ResponseEntity<Person> getPersonByUserName(@PathVariable("userName") String userName) {
         Person person = personService.findPersonByUserName(userName);
+        return new ResponseEntity<>(person, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByUserEmail/{userEmail}")
+    public ResponseEntity<Person> getPersonByUserEmail(@PathVariable("userEmail") String userEmail) {
+        Person person = personService.findPersonByEmail(userEmail);
+        return new ResponseEntity<>(person, HttpStatus.OK);
+    }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Person> getPersonByUserId(@PathVariable("id") int id) {
+        Person person = personService.findPersonById(id);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
@@ -46,9 +58,15 @@ public class PersonController {
         return new ResponseEntity<>(updatePerson, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userName}")
-    public ResponseEntity<?> deletePerson(@PathVariable("userName") String userName) {
-        personService.deletePerson(userName);
+    @DeleteMapping("/deleteByUserName/{userName}")
+    public ResponseEntity<?> deletePersonByUserName(@PathVariable("userName") String userName) {
+        personService.deletePersonByUserName(userName);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<?> deletePersonById(@PathVariable("id") int id) {
+        personService.deletePersonById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
