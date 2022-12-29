@@ -27,7 +27,7 @@ public class AccommodationService {
     }
 
     public Accommodation findAccommodationByCity(String city){
-        return accommodationRepository.findByAddress_City(city).orElse(null);
+        return accommodationRepository.findByCity(city).orElse(null);
     }
 
     public Accommodation findAccommodationById(int id){

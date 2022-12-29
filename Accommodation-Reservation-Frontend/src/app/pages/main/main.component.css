@@ -1,0 +1,51 @@
+.banner
+{
+    background-image: url('../../../assets/img/banner.jpg');
+    height: 500px;
+    background-position: center top;
+    background-size: cover;
+}
+.main {
+    min-height: 1500px;
+}
+.content
+{
+    top: 30%;
+    left: 20%;
+    position: absolute;
+}
+.content h1 
+{
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    font-weight: bold;
+  
+}
+.search-accommodation {
+    padding: 40px 5px;
+    width: 70%;
+    margin: auto;
+}
+.form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+  }
+.accommodationBox 
+{
+    height: 100%;
+    width: 100%;
+    padding: 10px 5px;
+} 
+.accommodationBox img
+{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.accommodationBox h1 
+{
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+

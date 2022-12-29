@@ -1,1 +1,23 @@
-<p>main works!</p>
+<div class="main">
+    <div class="banner">
+        <div class="content">
+            <h1>Book the best accomodations!</h1>
+        </div>
+    </div>
+    <div class="search-accommodation">  
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChanged()" autocomplete="off" placeholder="Start searching for a City or Hotel name">
+    </div>
+    <div class="container mt-4 mb-4">
+        <h1 class="text-center">Offers:</h1>
+        <div class="row">
+            <div class="col-lg-3 mt-3" *ngFor="let accommodation of accommodations ; index as i">
+                <div class="accommodationBox" *ngIf="i<=8">
+                    <h1>{{accommodation.name}}</h1>
+                    <img src="../../../assets/img/{{accommodation.mainPagePicture}}" />
+                    <p>{{accommodation.description}}</p>
+                    <p>{{accommodation.city}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

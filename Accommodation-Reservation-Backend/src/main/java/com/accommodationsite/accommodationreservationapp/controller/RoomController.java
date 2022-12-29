@@ -26,7 +26,7 @@ public class RoomController {
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Room> getPerson(@PathVariable("id") int id) {
         Room room = roomService.findRoomById(id);
         return new ResponseEntity<>(room, HttpStatus.OK);

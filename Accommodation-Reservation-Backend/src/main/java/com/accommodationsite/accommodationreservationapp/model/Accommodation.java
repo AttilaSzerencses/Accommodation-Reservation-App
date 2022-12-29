@@ -21,6 +21,7 @@ public class Accommodation {
     private String name;
     private String mainPagePicture;
     private String description;
+    private String city;
 
     //Egy darab szálláshoz egy darab cím tartozhat.
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)

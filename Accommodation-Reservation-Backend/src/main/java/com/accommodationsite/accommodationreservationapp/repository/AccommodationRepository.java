@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Integer> {
-    Optional<Accommodation> findByAddress_City(String address_city);
+    Optional<Accommodation> findByCity(String city);
     Optional<Accommodation> findByName(String name);
     Optional<Accommodation> deleteByName(String name);
 }
