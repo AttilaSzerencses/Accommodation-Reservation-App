@@ -19,6 +19,7 @@ public class PersonService {
     public Person addPerson(Person person){
         person.setPassword(getEncodedPassword(person.getPassword()));
         person.setRole("user");
+        person.setActivated(false);
         return personRepository.save(person);
     }
 
@@ -48,6 +49,14 @@ public class PersonService {
 
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
+    }
+
+    public Person personActivation(String username){
+        Person person = personRepository.findByUsername(username).orElse(null);
+        if (person != null){
+            person.setActivated(true);
+        }
+        return personRepository.save(person);
     }
 
 }

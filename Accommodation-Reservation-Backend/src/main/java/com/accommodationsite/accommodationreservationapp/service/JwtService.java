@@ -1,10 +1,12 @@
 package com.accommodationsite.accommodationreservationapp.service;
 
+import com.accommodationsite.accommodationreservationapp.exception.UserNotActivatedException;
 import com.accommodationsite.accommodationreservationapp.model.JwtRequest;
 import com.accommodationsite.accommodationreservationapp.model.JwtResponse;
 import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.repository.PersonRepository;
 import com.accommodationsite.accommodationreservationapp.util.JwtUtil;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -46,11 +48,16 @@ public class JwtService implements UserDetailsService {
         Person person = personRepository.findByUsername(username).get();
 
         if (person != null) {
-            return new org.springframework.security.core.userdetails.User(
-                    person.getUsername(),
-                    person.getPassword(),
-                    new ArrayList<>()
-            );
+            if (person.getActivated()){
+                return new org.springframework.security.core.userdetails.User(
+                        person.getUsername(),
+                        person.getPassword(),
+                        new ArrayList<>()
+                );
+            } else{
+                throw new UserNotActivatedException("User is not activated! You have to check the activation email!");
+            }
+
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
