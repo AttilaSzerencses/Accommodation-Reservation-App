@@ -1,14 +1,28 @@
-<mat-card>
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" >
-        <h2>Log In</h2>
-        <mat-form-field>
-          <input matInput type="text" placeholder="UserName" formControlName="username" required="true">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" formControlName="password" required="true">
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Login</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+<!-- login.component.html -->
+<div class="bg-white min-h-screen flex items-center justify-center">
+  <div class="max-w-xs w-full bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-xl font-bold mb-4 text-center text-gray-500">Login</h1>
+    <form (keyup.enter)="onLogin()" [formGroup]="loginForm">
+      <div class="mb-4">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="email">
+          Username
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" formControlName="username" placeholder="Username" required="true">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="password">
+          Password
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" placeholder="**********" required="true">
+      </div>
+      <div class="flex items-center justify-between">
+        <button (click)="onLogin()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          Sign In
+        </button>
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+          Forgot Password?
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

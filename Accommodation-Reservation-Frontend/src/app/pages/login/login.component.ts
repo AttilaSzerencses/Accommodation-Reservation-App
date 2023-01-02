@@ -13,20 +13,24 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = new FormGroup({
-    username: new FormControl(),
-    password: new FormControl(),
-  });
-
   constructor(private personService: PersonService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  loginForm = new FormGroup({
+    username: new FormControl(),
+    password: new FormControl(),
+  })
+
   public onLogin() {
+    if(this.loginForm.get("username")?.value === undefined || this.loginForm.get("password")?.value === ""){
+      this.errorAlert("The username and password field cannot be empty!");
+      return;
+    }
     const person: JwtResponse = {
-      username: this.loginForm.get('username')?.value,
-      password: this.loginForm.get('password')?.value
+      username: this.loginForm.get("username")?.value,
+      password: this.loginForm.get("password")?.value,
     };
     this.personService.login(person).subscribe(
       (response: any) => {
@@ -50,12 +54,21 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/main'])
   }
 
-  public errorAlert(){
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: "Error! IDE JÖN A HTTP ERROR RESPONSE TEXT",
-    })
+  public errorAlert(msg?: string){
+    if(msg != null){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: msg,
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error! IDE JÖN A HTTP ERROR RESPONSE TEXT",
+      })
+    }
+    
   }
 
 }

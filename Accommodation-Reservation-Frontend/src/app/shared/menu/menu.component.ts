@@ -11,14 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  constructor(private breakpointObserver: BreakpointObserver, private personService: PersonService, private router: Router) { }
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  constructor( private personService: PersonService, private router: Router) { }
+
+  showMenu  = true;
 
   ngOnInit(): void {
+  }
+
+  toggleNavbar(){
+    this.showMenu = !this.showMenu;
   }
 
   public isAuthenticated(){

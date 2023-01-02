@@ -1,20 +1,39 @@
-<mat-card>
-  <mat-card-content>
-    <form [formGroup]="signUpForm" (ngSubmit)="onRegistration()" >
-      <h2>Registration</h2>
-      <mat-form-field class="ng-form">
-        <input matInput type="text" placeholder="Username" formControlName="username" required="true">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" placeholder="Email" formControlName="email" required="true">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password" formControlName="password" required="true">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password Again" formControlName="rePassword" required="true">
-      </mat-form-field>
-      <button [disabled]="signUpForm.invalid" mat-raised-button color="primary" type="submit" >Registration</button>
+<div class="bg-white min-h-screen flex items-center justify-center">
+  <div class="max-w-xs w-full bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-xl font-bold mb-4 text-center text-gray-500">Registration</h1>
+    <form [formGroup]="signUpForm" (ngSubmit)="onRegistration()">
+      <div class="mb-4">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="username">
+          Username
+        </label>
+        <input formControlName="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" required="true">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="email">
+          Email
+        </label>
+        <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" required="true">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="password">
+          Password
+        </label>
+        <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="**********" required="true">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-500 text-sm font-bold mb-2" for="password-again">
+          Password Again
+        </label>
+        <input formControlName="rePassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password-again" type="password" placeholder="********" required="true">
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onRegistration()">
+          Sign Up
+        </button>
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">
+          Click here for login!
+        </a>
+      </div>
     </form>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
