@@ -1,38 +1,85 @@
-<div class="container rounded bg-white mt-5 mb-5">
-  <div class="row">
-      <div class="col-md-3 border-right">
-          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-      </div>
-      <div class="col-md-5 border-right">
-          <div class="p-3 py-5">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 class="text-right">Profile Settings</h4>
-              </div>
-              <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                  <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                  <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                  <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-              </div>
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right py-2">Address Settings</h4>
-              </div>
-              <div class="row mt-3">
-                  <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter postcode" value=""></div>
-                  <div class="col-md-12"><label class="labels">City</label><input type="text" class="form-control" placeholder="enter city" value=""></div>
-                  <div class="col-md-12"><label class="labels">Street</label><input type="text" class="form-control" placeholder="enter street" value=""></div>
-                  <div class="col-md-12"><label class="labels">House Number</label><input type="text" class="form-control" placeholder="enter house number" value=""></div>
-              </div>
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Address</button></div>
+<div *ngIf="user">
+  <div class="flex justify-center my-3">
+    <h1 class="font-bold">Welcome <u>{{user.username}}</u> on your profile page!</h1>
+  </div>
+  <div class="flex justify-center my-5">
+    <div class="w-full max-w-md">
+      <h2 class="my-2">You can update your own data here:</h2>
+      <div class="flex">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-5/6 mr-4" [formGroup]="userDetailsForm">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              Username
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username" type="text" placeholder="Username" formControlName="username" [(ngModel)]="user.username">
           </div>
-      </div>
-      <div class="col-md-4">
-        <div class="d-flex justify-content-between align-items-center mb-3  py-5">
-          <h4 class="text-right">My bookings</h4>
-      </div>
-      <div class="p-8">
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">My bookings</button></div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              Password
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="password" type="password" placeholder="********" formControlName="password"
+              [(ngModel)]="user.password">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+              Email
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email" type="email" placeholder="Email" formControlName="email" [(ngModel)]="user.email">
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              (click)="updateUserDetails()">
+              Save
+            </button>
+          </div>
+        </form>
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-5/6">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="postcode">
+              Postcode
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="postcode" type="text" placeholder="Postcode">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+              City
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="city" type="text" placeholder="City">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+              Street
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="street" type="text" placeholder="Street">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="housenumber">
+              House number
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="housenumber" type="text" placeholder="House number">
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Save
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

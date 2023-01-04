@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Person } from '../models/person';
 import { environment } from 'src/environments/environment';
@@ -10,10 +10,16 @@ import { JwtResponse } from '../models/jwtResponse';
 })
 export class PersonService {
   private apiServerUrl = environment.apiBaseUrl;
+  //requestHeader = new HttpHeaders({"No-Auth":"True"});
+
   constructor(private http: HttpClient) { }
 
   public getPersons(): Observable<Person[]>{
     return this.http.get<Person[]>(`${this.apiServerUrl}/person/all`);
+  }
+
+  public getPersonById(personId: number): Observable<Person>{
+    return this.http.get<Person>(`${this.apiServerUrl}/person/findById/${personId}`);
   }
 
   public registration(person: Person): Observable<Person> {
@@ -29,7 +35,7 @@ export class PersonService {
   }
 
   public login(jwtResponse: JwtResponse): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${this.apiServerUrl}/authenticate`, jwtResponse);
+    return this.http.post<JwtResponse>(`${this.apiServerUrl}/authenticate`, jwtResponse); //, {headers: this.requestHeader}
   }
 
   public isLoggedIn(){

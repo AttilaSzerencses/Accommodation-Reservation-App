@@ -6,4 +6,8 @@ export interface Person {
     lastName?: string;
     email: string;
     phone?: string;
+    role?: string;
+    activated?: boolean;
+    own_accommodation_id?: number;
+    address_id?: number;
 }

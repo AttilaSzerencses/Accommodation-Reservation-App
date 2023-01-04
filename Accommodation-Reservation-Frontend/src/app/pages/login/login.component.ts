@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
     this.personService.login(person).subscribe(
       (response: any) => {
         console.log(response);
-        localStorage.setItem("token",response.token);
+        localStorage.setItem("userId",response.person.id);
+        localStorage.setItem("token", response.token);
         this.succesAlert();
       },
       (error: HttpErrorResponse) => {
