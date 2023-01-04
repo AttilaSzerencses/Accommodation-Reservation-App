@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl(),
   })
 
+  passwordhidden: boolean = false;
+
   public onLogin() {
     if(this.loginForm.get("username")?.value === undefined || this.loginForm.get("password")?.value === ""){
       this.errorAlert("The username and password field cannot be empty!");
@@ -42,6 +44,10 @@ export class LoginComponent implements OnInit {
         this.errorAlert();
       }
     )
+  }
+
+  public hidePassword(){
+    this.passwordhidden = !this.passwordhidden;
   }
 
   public succesAlert(){

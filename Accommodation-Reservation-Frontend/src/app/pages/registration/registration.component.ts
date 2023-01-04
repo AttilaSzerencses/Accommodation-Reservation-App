@@ -17,8 +17,9 @@ export class RegistrationComponent implements OnInit {
     username: new FormControl(),
     email: new FormControl(),
     password: new FormControl(),
-    rePassword: new FormControl()
   });
+
+  passwordhidden: boolean = false;
 
   constructor(private personService: PersonService, private router: Router) { }
 
@@ -44,6 +45,10 @@ export class RegistrationComponent implements OnInit {
         this.errorAlert();
       }
     )
+  }
+
+  public hidePassword(){
+    this.passwordhidden = !this.passwordhidden;
   }
 
   public succesAlert(){
