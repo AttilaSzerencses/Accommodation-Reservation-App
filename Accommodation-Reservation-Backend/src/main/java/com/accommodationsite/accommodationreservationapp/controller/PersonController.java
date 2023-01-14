@@ -57,7 +57,7 @@ public class PersonController {
         } else {
             personService.addPerson(person);
             try {
-                emailSenderService.sendEmail(person.getEmail(),"Account verification", "http://localhost:8080/person/accountActivation/"+person.getUsername());
+                emailSenderService.sendEmail(person.getEmail(),"Account verification", "http://localhost:4200/person/user-activation?username="+person.getUsername());
             }catch( Exception e ){
                 logger.info("Error Sending Email: " + e.getMessage());
             }
@@ -66,8 +66,14 @@ public class PersonController {
     }
 
     @GetMapping("/accountActivation/{username}")
-    public void accountActivation(@PathVariable("username") String username){
-        personService.personActivation(username);
+    public ResponseEntity<String> accountActivation(@PathVariable("username") String username){
+        if (personService.findPersonByUserName(username) == null || personService.findPersonByUserName(username).getActivated()){
+            return new ResponseEntity<>("The username does not exists!",HttpStatus.BAD_REQUEST);
+        } else {
+            personService.personActivation(username);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
     }
 
     @PutMapping("/update")

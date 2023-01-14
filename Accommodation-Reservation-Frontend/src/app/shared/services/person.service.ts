@@ -39,6 +39,10 @@ export class PersonService {
     return this.http.post<JwtResponse>(`${this.apiServerUrl}/authenticate`, jwtResponse); //, {headers: this.requestHeader}
   }
 
+  public personActivation(userName: string): Observable<void> {
+    return this.http.get<void>(`${this.apiServerUrl}/person/accountActivation/${userName}`);
+  }
+
   public isLoggedIn(){
     let token = localStorage.getItem("token");
     if(token == undefined || token === '' || token == null){
