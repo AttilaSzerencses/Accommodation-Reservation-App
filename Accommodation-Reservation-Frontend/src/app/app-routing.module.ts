@@ -24,6 +24,16 @@ const routes: Routes = [
   },
 
   {
+    path: 'aboutus',
+    loadChildren: () => import('./pages/aboutus/aboutus.module').then(m => m.AboutusModule)
+  },
+
+  {
+    path: 'user-activation',
+    loadChildren: () => import('./pages/user-activation/user-activation.module').then(m => m.UserActivationModule)
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'

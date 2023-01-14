@@ -21,19 +21,24 @@ export class ProfileComponent implements OnInit {
     email: new FormControl(),
   })
 
-  constructor(private personService: PersonService, private router: Router) {}
+  constructor(private personService: PersonService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
   }
 
-  public getCurrentUser(){
-      console.log(Number(localStorage.getItem("userId")));
-      const person = this.personService.getPersonById(this.userId).subscribe((data: Person) => {
+  public getCurrentUser() {
+    console.log(Number(localStorage.getItem("userId")));
+    const person = this.personService.getPersonById(this.userId).subscribe((data: Person) => {
       person.unsubscribe();
       this.user = data;
-    }) 
+    })
   }
+
+  /*public logOutAfterModification() {
+    localStorage.clear(); //If you change username or password or anything you have to login again
+    this.router.navigate(['/main'])
+  }*/
 
   public updateUserDetails() {
     let updatedPerson = this.user;
@@ -45,7 +50,7 @@ export class ProfileComponent implements OnInit {
     console.log(updatedPerson.username);
     console.log(updatedPerson.email);
     console.log(updatedPerson.password);
-    
+
     this.personService.updatePerson(updatedPerson).subscribe(
       (response: Person) => {
         console.log(response);
@@ -54,9 +59,9 @@ export class ProfileComponent implements OnInit {
         alert(error.message);
       }
     );
-
-    localStorage.clear(); //If you change username or password or anything you have to login again
-    this.router.navigate(['/main'])
+    //this.logOutAfterModification();
   }
+
+
 
 }
