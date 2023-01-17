@@ -11,23 +11,28 @@ import { AccommodationService } from 'src/app/shared/services/accommodation.serv
 export class AccommodationComponent implements OnInit {
   accomodationID: number = 0;
   accommodation: Accommodation;
-  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService) { }
 
   ngOnInit(): void {
+    this.getAccommodationIdFromUrl();
+    this.getAccomodationById(this.accomodationID);
+  }
+
+  public getAccommodationIdFromUrl() {
     this.route.queryParams.subscribe(params => {
       this.accomodationID = params['accommodation'] || 0;
     })
-    this.getAccomodationById(this.accomodationID);
-    console.log(this.accommodation);
-    
   }
 
-  public getAccomodationById(accommodationID: number){
+  public getAccomodationById(accommodationID: number) {
+    if (this.accomodationID == 0) {
+      this.router.navigate(['/main']);
+    }
     this.accommodationService.getAccommodationById(accommodationID).subscribe((data: Accommodation) => {
       this.accommodation = data;
     });
   }
-  
+
 
 }
 

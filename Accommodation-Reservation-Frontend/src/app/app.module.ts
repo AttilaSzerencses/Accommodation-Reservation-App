@@ -8,6 +8,9 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MenuComponent } from './shared/menu/menu.component';
+import { AboutusComponent } from './pages/aboutus/aboutus.component';
+import { AccommodationComponent } from './pages/accommodation/accommodation.component';
+import { UserActivationComponent } from './pages/user-activation/user-activation.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,9 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
-import { AboutusComponent } from './pages/aboutus/aboutus.component';
-import { AccommodationComponent } from './pages/accommodation/accommodation.component';
-import { UserActivationComponent } from './pages/user-activation/user-activation.component';
+
 
 @NgModule({
   declarations: [

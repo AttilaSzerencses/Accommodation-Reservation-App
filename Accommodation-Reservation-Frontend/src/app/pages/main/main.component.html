@@ -28,7 +28,7 @@
         <div class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 w-100 mx-2 cursor-pointer"
             *ngFor="let accommodation of accommodations ; index as i"
             (click)="redirectWithAccommodation(accommodation)">
-            <div class="h-48 w-auto md:w-1/2">
+            <div class="h-48 w-auto">
                 <img class="inset-0 h-full w-72 object-cover object-center"
                     :src="../../../assets/img/{{accommodation.mainPagePicture}}" />
             </div>
