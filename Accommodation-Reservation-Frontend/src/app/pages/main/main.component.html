@@ -9,7 +9,7 @@
             (ngModelChange)="onSearchTextChanged()" autocomplete="off"
             placeholder="Start searching for a City or Hotel name">
     </div>
-<!--
+    <!--
      <div
         class="m-auto pt-2 pb-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-4/5">
         <div class="rounded overflow-hidden shadow-lg" *ngFor="let accommodation of accommodations ; index as i">
@@ -25,8 +25,9 @@
 -->
 
     <div class="container lg:w-4/5 mx-auto flex flex-col pb-5">
-        <div class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 w-100 mx-2"
-            *ngFor="let accommodation of accommodations ; index as i">
+        <div class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 w-100 mx-2 cursor-pointer"
+            *ngFor="let accommodation of accommodations ; index as i"
+            (click)="redirectWithAccommodation(accommodation)">
             <div class="h-48 w-auto md:w-1/2">
                 <img class="inset-0 h-full w-72 object-cover object-center"
                     :src="../../../assets/img/{{accommodation.mainPagePicture}}" />

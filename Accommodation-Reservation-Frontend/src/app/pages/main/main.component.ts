@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Accommodation } from 'src/app/shared/models/accommodation';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
 
@@ -9,7 +10,7 @@ import { AccommodationService } from 'src/app/shared/services/accommodation.serv
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit{
-  constructor(private accommodationService: AccommodationService) { }
+  constructor(private accommodationService: AccommodationService, private router: Router) { }
 
   savedAccommodations: Array<Accommodation> = [];
   accommodations: Array<Accommodation> = [];
@@ -43,6 +44,10 @@ export class MainComponent implements OnInit{
     } else {
       this.accommodations = filteredAccommodationList;
     } 
+  }
+
+  public redirectWithAccommodation(accommodation: Accommodation) {
+    this.router.navigate(['/accommodation'], { queryParams: { accommodation: accommodation.id}});
   }
 
 }

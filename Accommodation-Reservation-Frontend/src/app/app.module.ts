@@ -26,6 +26,7 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
 import { AboutusComponent } from './pages/aboutus/aboutus.component';
+import { AccommodationComponent } from './pages/accommodation/accommodation.component';
 import { UserActivationComponent } from './pages/user-activation/user-activation.component';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { UserActivationComponent } from './pages/user-activation/user-activation
     ProfileComponent,
     MenuComponent,
     AboutusComponent,
-    UserActivationComponent
+    UserActivationComponent,
+    AccommodationComponent
   ],
   imports: [
     BrowserModule,

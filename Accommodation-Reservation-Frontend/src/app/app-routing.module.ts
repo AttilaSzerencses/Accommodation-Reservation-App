@@ -34,6 +34,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'accommodation',
+    loadChildren: () => import('./pages/accommodation/accommodation.module').then(m => m.AccommodationModule)
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'
