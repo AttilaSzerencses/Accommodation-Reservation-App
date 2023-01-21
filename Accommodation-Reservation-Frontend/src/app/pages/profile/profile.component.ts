@@ -12,8 +12,11 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   userId: number = Number(localStorage.getItem("userId"))
-  username = "";
-  declare user: Person;
+  user: Person;
+  updatedPerson: Person;
+  showModal = false;
+  modalIdentifier = "";
+  
 
   userDetailsForm = new FormGroup({
     username: new FormControl(),
@@ -35,22 +38,40 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  /*public logOutAfterModification() {
+  toggleModal(identifier: string){
+    this.modalIdentifier = identifier;
+    this.setFormValues();
+    this.showModal = !this.showModal;
+  }
+
+  public setFormValues(){
+    this.userDetailsForm.get('username')?.setValue(this.user.username);
+    this.userDetailsForm.get('email')?.setValue(this.user.email);
+  }
+
+  public logOutAfterModification() {
     localStorage.clear(); //If you change username or password or anything you have to login again
     this.router.navigate(['/main'])
-  }*/
+  }
 
-  public updateUserDetails() {
+  public updateDetails() {
+    if(this.modalIdentifier == "personal"){
+      this.personUpdate();
+      this.toggleModal(this.modalIdentifier);
+    } else {
+      this.addressUpdate();
+      this.toggleModal(this.modalIdentifier);
+    }
+  }
+
+  public personUpdate() {
     let updatedPerson = this.user;
+    let usernameUpdate = false;
+    if(this.userDetailsForm.get("username")?.value != this.user.username){
+      usernameUpdate = true;
+    }
     updatedPerson.username = this.userDetailsForm.get("username")?.value;
-    /*if(updatedPerson.password !== this.userDetailsForm.get("password")?.value){
-      updatedPerson.password = this.userDetailsForm.get("password")?.value;
-    }*/
     updatedPerson.email = this.userDetailsForm.get("email")?.value;
-    console.log(updatedPerson.username);
-    console.log(updatedPerson.email);
-    console.log(updatedPerson.password);
-
     this.personService.updatePerson(updatedPerson).subscribe(
       (response: Person) => {
         console.log(response);
@@ -59,7 +80,14 @@ export class ProfileComponent implements OnInit {
         alert(error.message);
       }
     );
-    //this.logOutAfterModification();
+    if (usernameUpdate){
+      this.logOutAfterModification();
+    }
+    window.location.reload();
+  }
+
+  public addressUpdate() {
+
   }
 
 

@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
       timer: 500
     })
     this.router.navigate(['/main'])
+    window.location.reload();
   }
 
   public errorAlert(msg?: string){

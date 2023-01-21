@@ -1,86 +1,135 @@
-<div *ngIf="user">
-  <div class="flex justify-center my-3">
-    <h1 class="font-bold">Welcome <u>{{user.username}}</u> on your profile page!</h1>
-  </div>
-  <div class="flex justify-center my-5">
-    <div class="w-full max-w-md">
-      <h2 class="my-2">You can update your own data here:</h2>
-      <div class="flex">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-5/6 mr-4" [formGroup]="userDetailsForm">
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Username
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username" type="text" placeholder="Username" formControlName="username" [(ngModel)]="user.username">
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-              Password
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="password" type="password" placeholder="********" formControlName="password"
-              [(ngModel)]="user.password">
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-              Email
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email" type="email" placeholder="Email" formControlName="email" [(ngModel)]="user.email">
-          </div>
-          <div class="flex items-center justify-between">
+<div *ngIf="user"></div>
+<div class="p-16">
+  <h1 class="flex justify-center my-3 font-bold">Welcome {{user.username}} on your profile page!</h1>
+  <div class="p-8 bg-white shadow mt-24">
+    <div
+      class="w-36 h-36 bg-indigo-100 mx-auto rounded-full shadow-xl inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <div class="mt-8 text-center border-b pb-4">
+      <h1 class="text-4xl font-medium text-gray-700">Personal Data</h1>
+      <p class="font-light text-gray-600 mt-3">Username: {{user.username}}</p>
+      <p class="font-light text-gray-600 mt-3">Name: {{user.firstName}} {{user.lastName}}</p>
+      <p class="font-light text-gray-600 mt-3">Email: {{user.email}}</p>
+      <p class="font-light text-gray-600 mt-3">Phone: {{user.phone}}</p>
+    </div>
+    <div class="mt-8 text-center pb-4">
+      <h1 class="text-4xl font-medium text-gray-700">Address</h1>
+      <p class="font-light text-gray-600 mt-3">Postcode</p>
+      <p class="font-light text-gray-600 mt-3">City</p>
+      <p class="font-light text-gray-600 mt-3">Street</p>
+      <p class="font-light text-gray-600 mt-3">House Number</p>
+    </div>
+    <div class="text-center pb-2">
+      <h2 class="flex justify-center mt-5 mb-3">You can update your own data here:</h2>
+      <button
+        class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        type="button" (click)="toggleModal('personal')">
+        Update personal data
+      </button>
+      <button
+        class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        type="button" (click)="toggleModal('address')">
+        Update Address
+      </button>
+    </div>
+    <div *ngIf="showModal"
+      class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div
+          class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <!--header-->
+          <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <h3 class="text-3xl font-semibold" *ngIf="this.modalIdentifier == 'personal'">
+              Update your personal data here! <br> If you modifie your username you have to login again! You'll be
+              automaticly log out.
+            </h3>
+            <h3 class="text-3xl font-semibold" *ngIf="this.modalIdentifier == 'address'">
+              Update your address here!
+            </h3>
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              (click)="updateUserDetails()">
-              Save
+              class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+              (click)="toggleModal(this.modalIdentifier)">
+              <span class=" text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                ×
+              </span>
             </button>
           </div>
-        </form>
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-5/6">
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="postcode">
-              Postcode
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="postcode" type="text" placeholder="Postcode">
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
-              City
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="city" type="text" placeholder="City">
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
-              Street
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="street" type="text" placeholder="Street">
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="housenumber">
-              House number
-            </label>
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="housenumber" type="text" placeholder="House number">
-          </div>
-          <div class="flex items-center justify-between">
+          <!--body-->
+          <!--PERSONAL DATA-->
+          <form class="bg-white px-8 pt-6 pb-8 mb-4 m-auto" [formGroup]="userDetailsForm"
+            *ngIf="this.modalIdentifier == 'personal' ">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                Username
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" placeholder="Username" formControlName="username">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                Email
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email" type="email" placeholder="Email" formControlName="email">
+            </div>
+          </form>
+          <!--ADDRESS DATA-->
+          <form class="bg-white px-8 pt-6 pb-8 m-auto" *ngIf="this.modalIdentifier == 'address' ">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="postcode">
+                Postcode
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="postcode" type="text" placeholder="Postcode">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                City
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="city" type="text" placeholder="City">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+                Street
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="street" type="text" placeholder="Street">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="housenumber">
+                House number
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="housenumber" type="text" placeholder="House number">
+            </div>
+          </form>
+          <!--footer-->
+          <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Save
+              class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button" (click)="toggleModal(this.modalIdentifier)">
+              Close
+            </button>
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button" (click)="updateDetails()">
+              Save Changes
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
+    <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
   </div>
 </div>
