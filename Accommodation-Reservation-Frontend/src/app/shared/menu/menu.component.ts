@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
   constructor( private personService: PersonService, private router: Router) { }
 
-  showMenu  = true;
+  showMenu  = false;
 
   ngOnInit(): void {
   }

@@ -28,7 +28,6 @@ public class PersonService {
     }
 
     public Person updatePerson(Person person){
-        //person.setPassword(getEncodedPassword(person.getPassword())); IF WE GET THE UPDATED PASSWORD FROM FRONTEND WE HAVE TO ENCODE BUT IF WE DONT MODIFY WE DON't HAVE TO ENCRYPT AGAIN
         return personRepository.save(person);
     }
 

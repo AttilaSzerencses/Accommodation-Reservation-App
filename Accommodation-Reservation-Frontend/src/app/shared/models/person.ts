@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export interface Person {
     id?: number;
     username: string;
@@ -9,5 +11,5 @@ export interface Person {
     role?: string;
     activated?: boolean;
     own_accommodation_id?: number;
-    address_id?: number;
+    address?: Address;
 }
