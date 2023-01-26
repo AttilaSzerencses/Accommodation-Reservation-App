@@ -27,10 +27,6 @@ export class MainComponent implements OnInit{
     this.getAccommodations();
   }
 
-  onSearchTextChanged(){
-    this.getFilteredAccommodations();
-  }
-
   getAccommodations() {
     const allAccomodations = this.accommodationService.getAccommodations().subscribe((data: Accommodation[]) => {
       allAccomodations.unsubscribe();
@@ -41,11 +37,13 @@ export class MainComponent implements OnInit{
 
   getFilteredAccommodations() {
     let filteredAccommodationList: Array<Accommodation> = [];
+    
     for (let accommodation of this.savedAccommodations){
       if (accommodation.name.toLowerCase().includes(this.searchText.toLowerCase()) || accommodation.city.toLowerCase().includes(this.searchText.toLowerCase())){
         filteredAccommodationList.push(accommodation);
       }
     }
+  
     if (filteredAccommodationList.length == 0){
       this.accommodations= [];
     } else {
@@ -54,7 +52,7 @@ export class MainComponent implements OnInit{
   }
 
   public redirectWithAccommodation(accommodation: Accommodation) {
-    this.router.navigate(['/accommodation'], { queryParams: { accommodation: accommodation.id}});
+    window.open(`http://localhost:4200/accommodation?accommodation=${accommodation.id}`, '_blank');
   }
 
   incrementAdults() {

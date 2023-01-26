@@ -5,17 +5,16 @@
         </div>
     </div>
     <div class="mx-auto w-3/4 pt-5 pb-5 flex flex-col sm:flex-row justify-center items-center">
-        <input class="shadow-xl w-3/5 h-12 rounded mb-3 lg:mb-0 lg:mr-3" type="text" name="search" [(ngModel)]="searchText"
-            (ngModelChange)="onSearchTextChanged()" autocomplete="off"
+        <input class="shadow-xl w-3/5 h-12 rounded mb-3 lg:mb-0 lg:mr-3" type="text" name="search" autocomplete="off" [(ngModel)]="searchText"
             placeholder="Start searching for a City or Hotel name">
-            <div class="bg-white rounded-md flex items-center mb-3 lg:mb-0 lg:mr-3">
-                <button class="bg-gray-300 text-gray-800 rounded-l-md px-3 py-2" (click)="decrementAdults()">-</button>
-                <div class="text-center px-3">
-                    <span>Person:</span>
-                    <span id="adults">{{ adults }}</span>
-                </div>
-                <button class="bg-gray-300 text-gray-800 rounded-r-md px-3 py-2" (click)="incrementAdults()">+</button>
+        <div class="bg-white rounded-md flex items-center mb-3 lg:mb-0 lg:mr-3">
+            <button class="bg-gray-300 text-gray-800 rounded-l-md px-3 py-2" (click)="decrementAdults()">-</button>
+            <div class="text-center px-3">
+                <span>Person:</span>
+                <span id="adults">{{ adults }}</span>
             </div>
+            <button class="bg-gray-300 text-gray-800 rounded-r-md px-3 py-2" (click)="incrementAdults()">+</button>
+        </div>
         <mat-form-field appearance="fill" class="w-3/5 absolute top-2">
             <mat-label>Check-in -- Check-out</mat-label>
             <mat-date-range-input [rangePicker]="picker">
@@ -26,13 +25,14 @@
                 class="absolute bottom-1 right-0"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
-        <button class="bg-blue-500 text-white px-3 py-2 rounded-md ml-2 h-12" >Search</button>
+        <button class="bg-blue-500 text-white px-3 py-2 rounded-md ml-2 h-12" (click)="getFilteredAccommodations()">Search</button>
     </div>
 
-    
-     <div
+
+    <div
         class="m-auto pt-2 pb-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-4/5 cursor-pointer">
-        <div class="rounded overflow-hidden shadow-lg" *ngFor="let accommodation of accommodations ; index as i" (click)="redirectWithAccommodation(accommodation)">
+        <div class="rounded overflow-hidden shadow-lg" *ngFor="let accommodation of accommodations ; index as i"
+            (click)="redirectWithAccommodation(accommodation)">
             <img class="w-full h-60" src="../../../assets/img/{{accommodation.mainPagePicture}}"
                 alt="{{accommodation.name}}">
             <div class="px-6 py-4">
@@ -44,7 +44,7 @@
     </div>
 
 
-<!--
+    <!--
     <div class="container lg:w-4/5 mx-auto flex flex-col pb-5">
         <div>
             <h2 class="mx-auto text-center">Offers/Searches:</h2>
