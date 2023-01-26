@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accommodation } from 'src/app/shared/models/accommodation';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
@@ -15,7 +16,13 @@ export class MainComponent implements OnInit{
   savedAccommodations: Array<Accommodation> = [];
   accommodations: Array<Accommodation> = [];
   searchText: string = "";
+  adults = 1;
 
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+  
   ngOnInit(): void {
     this.getAccommodations();
   }
@@ -48,6 +55,16 @@ export class MainComponent implements OnInit{
 
   public redirectWithAccommodation(accommodation: Accommodation) {
     this.router.navigate(['/accommodation'], { queryParams: { accommodation: accommodation.id}});
+  }
+
+  incrementAdults() {
+    this.adults++;
+  }
+
+  decrementAdults() {
+    if (this.adults > 1) {
+      this.adults--;
+    }
   }
 
 }
