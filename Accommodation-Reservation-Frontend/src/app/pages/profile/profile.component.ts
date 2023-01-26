@@ -69,7 +69,6 @@ export class ProfileComponent implements OnInit {
 
   public logOutAfterModification() {
     localStorage.clear(); //If you change username or password or anything you have to login again
-    window.location.reload();
     this.router.navigate(['/main'])
   }
 

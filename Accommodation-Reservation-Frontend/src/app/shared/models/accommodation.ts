@@ -6,4 +6,5 @@ export interface Accommodation {
     city: string;
     address?: string;
     rooms?: [];
+    amenities?: [];
 }

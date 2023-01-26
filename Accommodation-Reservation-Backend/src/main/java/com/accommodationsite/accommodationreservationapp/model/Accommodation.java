@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Accommodation {
+public class Accommodation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -32,6 +33,10 @@ public class Accommodation {
     @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "accomodation_id", referencedColumnName = "id")
     private List<Room> rooms;
+
+    @ManyToMany(targetEntity = Amenity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "amenities",  referencedColumnName = "id")
+    private List<Amenity> amenities;
 
 
     private String phoneNumber;
