@@ -28,7 +28,12 @@
         <button class="bg-blue-500 text-white px-3 py-2 rounded-md ml-2 h-12" (click)="getFilteredAccommodations()">Search</button>
     </div>
 
-
+    <div>
+        <h2 class="mx-auto text-center">Offers/Searches:</h2>
+    </div>
+    <div *ngIf="accommodations.length === 0">
+        <p class="mx-auto text-center">No results for the search criteria you entered!</p>
+    </div>
     <div
         class="m-auto pt-2 pb-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-4/5 cursor-pointer">
         <div class="rounded overflow-hidden shadow-lg" *ngFor="let accommodation of accommodations ; index as i"

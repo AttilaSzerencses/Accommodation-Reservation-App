@@ -30,7 +30,7 @@ export class MainComponent implements OnInit{
   getAccommodations() {
     const allAccomodations = this.accommodationService.getAccommodations().subscribe((data: Accommodation[]) => {
       allAccomodations.unsubscribe();
-      this.accommodations=data;
+      this.accommodations=data.slice(0,8);
       this.savedAccommodations = data;
     })
   }
