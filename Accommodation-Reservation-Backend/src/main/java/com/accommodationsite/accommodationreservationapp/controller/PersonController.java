@@ -57,7 +57,7 @@ public class PersonController {
         } else {
             personService.addPerson(person);
             try {
-                emailSenderService.sendEmail(person.getEmail(),"Account verification", "http://localhost:4200/person/user-activation?username="+person.getUsername());
+                emailSenderService.sendEmail(person.getEmail(),"Account verification", "http://localhost:4200/user-activation?username="+person.getUsername());
             }catch( Exception e ){
                 logger.info("Error Sending Email: " + e.getMessage());
             }

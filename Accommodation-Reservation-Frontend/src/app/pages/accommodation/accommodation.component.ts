@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Accommodation } from 'src/app/shared/models/accommodation';
 import { Amenity } from 'src/app/shared/models/amenity';
+import { Room } from 'src/app/shared/models/room';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class AccommodationComponent implements OnInit {
   accomodationID: number = 0;
   accommodation: Accommodation;
   amenities: Array<Amenity>;
+  rooms: Array<Room>;
   constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService) { }
 
   ngOnInit(): void {
@@ -34,6 +36,9 @@ export class AccommodationComponent implements OnInit {
       this.accommodation = data;
       if(data.amenities !== undefined && data.amenities !== null) {
         this.amenities = data.amenities;
+      }
+      if (data.rooms !== undefined && data.amenities !== null){
+        this.rooms = data.rooms;
       }
     });
   }
