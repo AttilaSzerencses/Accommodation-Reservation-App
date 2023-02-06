@@ -15,6 +15,7 @@ import { AddressService } from 'src/app/shared/services/address.service';
 export class ProfileComponent implements OnInit {
   userId: number = Number(localStorage.getItem("userId"))
   user: Person;
+  role: string;
   updatedPerson: Person;
   showModal = false;
   modalIdentifier = "";
@@ -46,6 +47,14 @@ export class ProfileComponent implements OnInit {
       person.unsubscribe();
       this.user = data;
     })
+  }
+
+  public isAdmin() {
+    if(this.user.role === "admin"){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   toggleModal(identifier: string){
