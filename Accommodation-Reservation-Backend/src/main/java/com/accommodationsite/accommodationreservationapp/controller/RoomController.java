@@ -3,10 +3,12 @@ package com.accommodationsite.accommodationreservationapp.controller;
 import com.accommodationsite.accommodationreservationapp.model.Room;
 import com.accommodationsite.accommodationreservationapp.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,19 @@ public class RoomController {
         List<Room> rooms = roomService.findAllRooms();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
+
+    @GetMapping("/findAllByAccommodationId/{accommodationId}")
+    public ResponseEntity<List<Room>> getAllRoomsByHotelId(@PathVariable("accommodationId") int accommodationId) {
+        List<Room> rooms = roomService.findRoomsByAccommodationId(accommodationId);
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Room>> getAvailableRoomsByDateRangeAndHotelId(@RequestParam int hotelId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        List<Room> availableRooms = roomService.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId);
+        return new ResponseEntity<>(availableRooms, HttpStatus.OK);
+    }
+
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Room> getPerson(@PathVariable("id") int id) {

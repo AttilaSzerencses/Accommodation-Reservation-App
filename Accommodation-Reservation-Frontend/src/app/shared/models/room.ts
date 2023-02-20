@@ -4,4 +4,5 @@ export interface Room {
     size?: number;
     description?: string;
     bedSize?: number;
+    accommodation_id?: number;
 }

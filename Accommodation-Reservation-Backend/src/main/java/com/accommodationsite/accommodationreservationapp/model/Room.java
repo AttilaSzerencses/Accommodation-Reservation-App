@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +21,9 @@ public class Room {
     private int size;
     private String description;
     private int bedSize;
+    @ManyToOne()
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
+    @OneToMany(mappedBy = "room")
+    private List<Reservation> reservations;
 }

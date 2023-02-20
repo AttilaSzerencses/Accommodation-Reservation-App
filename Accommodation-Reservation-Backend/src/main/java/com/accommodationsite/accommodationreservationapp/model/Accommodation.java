@@ -29,10 +29,10 @@ public class Accommodation implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    //Egy darab szálláshoz több darab szoba tartozhat.
-    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "accomodation_id", referencedColumnName = "id")
-    private List<Room> rooms;
+//    //Egy darab szálláshoz több darab szoba tartozhat.
+//    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "accomodation_id", referencedColumnName = "id")
+//    private List<Room> rooms;
 
     @ManyToMany(targetEntity = Amenity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "amenities",  referencedColumnName = "id")

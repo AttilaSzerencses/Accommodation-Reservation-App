@@ -19,6 +19,10 @@ export class RoomService {
     return this.http.get<Room[]>(`${this.apiServerUrl}/request/room/all`);
   }
 
+  public getRoomsByAccommodationId(id: number): Observable<Room[]>{
+    return this.http.get<Room[]>(`${this.apiServerUrl}/request/room/findAllByAccommodationId/${id}`);
+  }
+
   public getRoomById(id: number): Observable<Room>{
     return this.http.get<Room>(`${this.apiServerUrl}/request/room/findById/${id}`);
   }
@@ -30,6 +34,7 @@ export class RoomService {
   public deleteRoomById(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/request/room/deleteById/${id}`);
   }
+
 
 
 }

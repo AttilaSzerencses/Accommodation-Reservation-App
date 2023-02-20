@@ -5,6 +5,7 @@ import com.accommodationsite.accommodationreservationapp.repository.RoomReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,11 +25,19 @@ public class RoomService {
         return roomRepository.findById(id).orElse(null);
     }
 
+    public List<Room> findRoomsByAccommodationId(int hotelId){
+        return roomRepository.findByAccommodationId(hotelId).orElse(null);
+    }
+
     public Room updateRoom(Room room){
         return roomRepository.save(room);
     }
 
     public void deleteRoomById(int id){
         roomRepository.deleteById(id);
+    }
+
+    public List<Room> findAvailableRoomsByDateRangeAndHotelId(LocalDate startDate, LocalDate endDate, int hotelId) {
+        return  roomRepository.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId);
     }
 }
