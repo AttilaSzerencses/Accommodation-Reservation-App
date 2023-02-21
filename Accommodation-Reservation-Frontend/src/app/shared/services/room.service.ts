@@ -35,6 +35,9 @@ export class RoomService {
     return this.http.delete<void>(`${this.apiServerUrl}/request/room/deleteById/${id}`);
   }
 
+  public getAvailableRoomsWithAccomodationIdAndDate(accommodationId: number, startDate: string, endDate: string): Observable<Array<Room>> {
+    return this.http.get<Room[]>(`${this.apiServerUrl}/request/room/available?hotelId=${accommodationId}&startDate=${startDate}&endDate=${endDate}`);
+  }
 
 
 }

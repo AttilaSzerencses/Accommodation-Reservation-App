@@ -30,6 +30,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
 
@@ -70,7 +71,7 @@ import { TokenInterceptorService } from './shared/services/token-interceptor.ser
     MatNativeDateModule,
     HttpClientModule
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
