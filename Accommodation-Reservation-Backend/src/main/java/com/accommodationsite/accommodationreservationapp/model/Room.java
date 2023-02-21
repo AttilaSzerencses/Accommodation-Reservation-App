@@ -24,6 +24,6 @@ public class Room {
     @ManyToOne()
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
-    @OneToMany(mappedBy = "room")
+    @OneToMany()
     private List<Reservation> reservations;
 }
