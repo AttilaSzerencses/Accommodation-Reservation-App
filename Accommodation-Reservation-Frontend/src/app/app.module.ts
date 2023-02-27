@@ -11,6 +11,7 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { AboutusComponent } from './pages/aboutus/aboutus.component';
 import { AccommodationComponent } from './pages/accommodation/accommodation.component';
 import { UserActivationComponent } from './pages/user-activation/user-activation.component';
+import { ReservationComponent } from './pages/reservation/reservation.component';
 
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -45,7 +46,8 @@ import { TokenInterceptorService } from './shared/services/token-interceptor.ser
     MenuComponent,
     AboutusComponent,
     UserActivationComponent,
-    AccommodationComponent
+    AccommodationComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

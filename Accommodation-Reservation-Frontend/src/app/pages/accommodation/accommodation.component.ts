@@ -58,6 +58,11 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
+  public forwardToReservation(room: Room) {
+    //TODO: I HAVE TO CHANGE IT TO QUERYSTRING OR ANYTHING ELSE! DON't PUT THE VARIABLES INTO THE URL!
+    window.open(`http://localhost:4200/reservation?room=${room}&persons=${this.persons}&startDate=${this.searchStartDate}&endDate=${this.searchEndDate}`);
+  }
+
 
 }
 

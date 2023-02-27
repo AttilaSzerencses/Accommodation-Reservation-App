@@ -43,6 +43,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'reservation',
+    loadChildren: () => import('./pages/reservation/reservation.module').then(m => m.ReservationModule),
+    canActivate: [ AuthGuard ]
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'
