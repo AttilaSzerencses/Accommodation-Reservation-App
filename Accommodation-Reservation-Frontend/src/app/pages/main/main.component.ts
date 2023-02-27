@@ -67,7 +67,13 @@ export class MainComponent implements OnInit {
   }
 
   public redirectWithAccommodation(accommodation: Accommodation) {
-    window.open(`http://localhost:4200/accommodation?accommodation=${accommodation.id}`, '_blank');
+    let convertedStartDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
+    let convertedEndDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
+    if (convertedStartDate === null || convertedEndDate === null || this.range.get("end")?.value === null){
+      convertedStartDate = "";
+      convertedEndDate = "";
+    }
+    window.open(`http://localhost:4200/accommodation?accommodation=${accommodation.id}&persons=${this.adults}&startDate=${convertedStartDate}&endDate=${convertedEndDate}`, '_blank');
   }
 
   incrementAdults() {

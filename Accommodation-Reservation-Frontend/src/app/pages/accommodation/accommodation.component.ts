@@ -13,22 +13,29 @@ import { RoomService } from 'src/app/shared/services/room.service';
 })
 export class AccommodationComponent implements OnInit {
   accommodationID: number = 0;
+  persons: number = 0;
+  searchStartDate: string;
+  searchEndDate: string;
   accommodation: Accommodation;
   amenities: Array<Amenity>;
   rooms: Array<Room>;
   constructor(private route: ActivatedRoute, private router: Router, private accommodationService: AccommodationService, private roomService: RoomService) { }
 
   ngOnInit(): void {
-    this.getAccommodationIdFromUrl();
+    this.getSentParamsFromUrl();
     this.getAccomodationById(this.accommodationID);
     this.getRoomsById(this.accommodationID)
   }
 
-  public getAccommodationIdFromUrl() {
+  public getSentParamsFromUrl() {
     this.route.queryParams.subscribe(params => {
       this.accommodationID = params['accommodation'] || 0;
+      this.persons = params['persons'];
+      this.searchStartDate = params['startDate'];
+      this.searchEndDate = params['endDate'];
     })
   }
+
 
   public getAccomodationById(accommodationID: number) {
     if (this.accommodationID == 0) {
