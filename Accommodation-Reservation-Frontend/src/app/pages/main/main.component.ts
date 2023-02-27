@@ -42,7 +42,11 @@ export class MainComponent implements OnInit {
     let filteredAccommodationListWithDate: Array<Accommodation> = [];
     for (let accommodation of this.savedAccommodations) {
       if (accommodation.name.toLowerCase().includes(this.searchText.toLowerCase()) || accommodation.city.toLowerCase().includes(this.searchText.toLowerCase())) {
-        filteredAccommodationList.push(accommodation);
+        if (accommodation.id == undefined) continue;
+        let freeRoomsByCapacityForTheCurrentAccommodation = await this.roomService.getAvailableRoomsByRoomCapacityAndHotelId(accommodation.id, this.adults).toPromise();
+        if (freeRoomsByCapacityForTheCurrentAccommodation && freeRoomsByCapacityForTheCurrentAccommodation.length !== 0) {
+          filteredAccommodationList.push(accommodation);
+        }
       }
     }
     if (this.range.get("start")?.value !== null && this.range.get("end")?.value !== null) {
@@ -51,7 +55,7 @@ export class MainComponent implements OnInit {
       for (let accommodation of filteredAccommodationList) {
         if (accommodation.id == undefined) continue;
         if (convertedStartDate === null || convertedEndDate === null) continue;
-        let freeRoomsForTheCurrentAccommodation = await this.roomService.getAvailableRoomsWithAccomodationIdAndDate(accommodation.id, convertedStartDate, convertedEndDate).toPromise();
+        let freeRoomsForTheCurrentAccommodation = await this.roomService.getAvailableRoomsWithAccomodationIdAndDate(accommodation.id, convertedStartDate, convertedEndDate, this.adults).toPromise();
         if (freeRoomsForTheCurrentAccommodation && freeRoomsForTheCurrentAccommodation.length !== 0) {
           filteredAccommodationListWithDate.push(accommodation);
         }

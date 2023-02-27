@@ -37,7 +37,11 @@ public class RoomService {
         roomRepository.deleteById(id);
     }
 
-    public List<Room> findAvailableRoomsByDateRangeAndHotelId(LocalDate startDate, LocalDate endDate, int hotelId) {
-        return  roomRepository.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId);
+    public List<Room> findAvailableRoomsByDateRangeAndHotelId(LocalDate startDate, LocalDate endDate, int hotelId, int persons) {
+        return  roomRepository.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId, persons);
+    }
+
+    public List<Room> findAvailableRoomsByRoomCapacityAndHotelId(int hotelId, int roomCapacity){
+        return roomRepository.findAvailableRoomsByRoomCapacityAndHotelId(hotelId, roomCapacity);
     }
 }

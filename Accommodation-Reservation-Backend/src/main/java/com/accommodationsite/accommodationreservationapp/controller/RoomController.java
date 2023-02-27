@@ -35,9 +35,15 @@ public class RoomController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<List<Room>> getAvailableRoomsByDateRangeAndHotelId(@RequestParam int hotelId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        List<Room> availableRooms = roomService.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId);
+    public ResponseEntity<List<Room>> getAvailableRoomsByDateRangeAndHotelId(@RequestParam int hotelId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @RequestParam int persons) {
+        List<Room> availableRooms = roomService.findAvailableRoomsByDateRangeAndHotelId(startDate, endDate, hotelId, persons);
         return new ResponseEntity<>(availableRooms, HttpStatus.OK);
+    }
+
+    @GetMapping("/availableByCapacity")
+    public ResponseEntity<List<Room>> getAvailableRoomsByRoomCapacityAndHotelId(@RequestParam int hotelId, @RequestParam int persons) {
+        List<Room> availableRoomsByCapacity = roomService.findAvailableRoomsByRoomCapacityAndHotelId(hotelId, persons);
+        return new ResponseEntity<>(availableRoomsByCapacity, HttpStatus.OK);
     }
 
 
