@@ -34,13 +34,11 @@
           type="button" (click)="toggleModal('address')">
           Update Address
         </button>
-        <a
-          *ngIf="isAdmin()"
-          href="/admin"
+        <a *ngIf="isAdmin()" href="/admin"
           class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           type="button">
           Admin page
-      </a>
+        </a>
       </div>
       <div *ngIf="showModal"
         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">

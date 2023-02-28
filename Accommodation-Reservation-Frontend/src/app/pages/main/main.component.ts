@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
   }
 
   public redirectWithAccommodation(accommodation: Accommodation) {
-    let convertedStartDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
+    let convertedStartDate = this.datePipe.transform(new Date(this.range.get("start")?.value), "yyyy-MM-dd")
     let convertedEndDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
     if (convertedStartDate === null || convertedEndDate === null || this.range.get("end")?.value === null){
       convertedStartDate = "";
