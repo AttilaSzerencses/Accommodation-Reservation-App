@@ -23,6 +23,10 @@ export class ReservationComponent implements OnInit {
   persons: Number;
   startDate: string;
   endDate: string;
+  reservedDays: number;
+  tax: number;
+  taxForReservation: number;
+  priceForReservation: number;
 
   personalDetailsForm = new FormGroup({
     firstName: new FormControl(),
@@ -38,6 +42,7 @@ export class ReservationComponent implements OnInit {
   constructor(private personService: PersonService, private route: ActivatedRoute, private router: Router, private reservationService: ReservationService, private roomService: RoomService) { }
 
   ngOnInit(): void {
+    this.tax = 500;
     this.getCurrentUser();
     this.getSentParamsFromUrl();
     this.getRoomById(this.roomId);
@@ -58,6 +63,10 @@ export class ReservationComponent implements OnInit {
     }
     this.roomService.getRoomById(id).subscribe((data: Room) => {
       this.room = data;
+      this.taxForReservation = this.tax*this.reservedDays;
+      if(this.room.pricePerNight){
+        this.priceForReservation = this.room.pricePerNight*this.reservedDays;
+      }
     });
   }
 
@@ -68,6 +77,7 @@ export class ReservationComponent implements OnInit {
       this.startDate = params['startDate'];
       this.endDate = params['endDate'];
     })
+    this.reservedDays = this.calculateDays(this.startDate, this.endDate);
   }
 
   public setFormValues() {
@@ -116,6 +126,13 @@ export class ReservationComponent implements OnInit {
       text: "Error! You have to give every data!",
     })
   }
+  
+  calculateDays(startDate: string, endDate: string){
+    let checkInDate = new Date(startDate);
+    let checkOutDate = new Date(endDate);
 
+    let days = Math.floor((checkOutDate.getTime() - checkInDate.getTime()) / 1000 / 60 / 60 / 24);
+    return days;
+  }
 
 }
