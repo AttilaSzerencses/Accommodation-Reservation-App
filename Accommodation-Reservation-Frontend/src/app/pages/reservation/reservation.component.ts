@@ -9,6 +9,9 @@ import { PersonService } from 'src/app/shared/services/person.service';
 import Swal from 'sweetalert2';
 import { ReservationService } from 'src/app/shared/services/reservation.service';
 import { RoomService } from 'src/app/shared/services/room.service';
+import { loadStripe } from '@stripe/stripe-js';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reservation',
@@ -27,6 +30,7 @@ export class ReservationComponent implements OnInit {
   tax: number;
   taxForReservation: number;
   priceForReservation: number;
+  stripePromise = loadStripe(environment.stripe);
 
   personalDetailsForm = new FormGroup({
     firstName: new FormControl(),
@@ -39,13 +43,14 @@ export class ReservationComponent implements OnInit {
     houseNumber: new FormControl(),
   })
 
-  constructor(private personService: PersonService, private route: ActivatedRoute, private router: Router, private reservationService: ReservationService, private roomService: RoomService) { }
+  constructor(private personService: PersonService, private route: ActivatedRoute, private router: Router, private reservationService: ReservationService, private roomService: RoomService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.tax = 500;
     this.getCurrentUser();
     this.getSentParamsFromUrl();
     this.getRoomById(this.roomId);
+    
   }
 
 
@@ -76,6 +81,9 @@ export class ReservationComponent implements OnInit {
       this.persons = params['persons'];
       this.startDate = params['startDate'];
       this.endDate = params['endDate'];
+      if(params['success'] === "true"){
+        this.sendReservation();
+      }
     })
     this.reservedDays = this.calculateDays(this.startDate, this.endDate);
   }
@@ -109,14 +117,38 @@ export class ReservationComponent implements OnInit {
     );
   }
 
+  async pay(price: number): Promise<void> {
+    // here we create a payment object
+    const payment = {
+      name: 'Room reservation',
+      currency: 'HUF',
+      amount: price*100,
+      quantity: '1',
+      cancelUrl: 'http://localhost:4200/'+this.router.url,
+      successUrl: 'http://localhost:4200/'+this.router.url+"&success=true",
+    };
+
+    const stripe = await this.stripePromise;
+
+    this.http
+      .post(`${environment.apiBaseUrl}/request/payment`, payment)
+      .subscribe((data: any) => {
+        stripe?.redirectToCheckout({
+          sessionId: data.id,
+        });
+      });
+  }
+
+
+
   public succesAlert(){
     Swal.fire({
       icon: 'success',
       title: 'Successful booking! You will be redirected to the profile page where you can check your reservation!',
       showConfirmButton: false,
-      timer: 2000
+      timer: 3000
     })
-    this.router.navigate(['/main'])
+    this.router.navigate(['/profile'])
   }
 
   public errorAlert(){

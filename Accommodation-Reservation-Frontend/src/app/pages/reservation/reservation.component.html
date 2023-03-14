@@ -1,4 +1,4 @@
-<section *ngIf="user" class=" py-12 text-gray-800 sm:py-24">
+<section *ngIf="room" class=" py-12 text-gray-800 sm:py-24">
   <div class="mx-auto flex max-w-md flex-col rounded-lg lg:max-w-screen-xl lg:flex-row">
     <div
       class="border border-gray-100 shadow-gray-500/20 mt-8 mb-2 max-w-2xl bg-white shadow-sm sm:rounded-lg sm:shadow-lg lg:mt-0">
@@ -120,7 +120,7 @@
               </div>
             </div>
             <div>
-              <button (click)="sendReservation()"
+              <button (click)="pay((this.priceForReservation + this.taxForReservation))"
                 class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
                 Book it!
               </button>
