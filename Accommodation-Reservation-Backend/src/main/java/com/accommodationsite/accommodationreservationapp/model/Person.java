@@ -29,8 +29,4 @@ public class Person implements Serializable {
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-    //Egy darab felhasználóhoz, egy darab hotel tartozhat.
-    @OneToOne(targetEntity = Accommodation.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "own_accommodation_id", referencedColumnName = "id")
-    private Accommodation accommodation;
 }

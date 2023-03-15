@@ -34,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
+import { CreateAccommodationComponent } from './pages/create-accommodation/create-accommodation.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { TokenInterceptorService } from './shared/services/token-interceptor.ser
     AboutusComponent,
     UserActivationComponent,
     AccommodationComponent,
-    ReservationComponent
+    ReservationComponent,
+    CreateAccommodationComponent
   ],
   imports: [
     BrowserModule,

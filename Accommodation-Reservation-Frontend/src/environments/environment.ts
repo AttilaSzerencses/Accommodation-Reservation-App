@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  stripe: '$STRIPE_PUBLIC_KEY',
+  stripe: 'STRIPE_KEY',
   apiBaseUrl: 'http://localhost:8080'
 };
 

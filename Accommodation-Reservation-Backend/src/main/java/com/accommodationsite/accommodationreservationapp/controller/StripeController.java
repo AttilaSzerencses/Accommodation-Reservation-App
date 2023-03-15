@@ -45,6 +45,6 @@ public class StripeController {
     }
 
     private static void init() {
-        Stripe.apiKey = "$PRIVATE_API_KEY";
+        Stripe.apiKey = "STRIPE_KEY";
     }
 }

@@ -49,6 +49,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'createAccommodation',
+    loadChildren: () => import('./pages/create-accommodation/create-accommodation.module').then(m => m.CreateAccommodationModule),
+    canActivate: [ AuthGuard ]
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'

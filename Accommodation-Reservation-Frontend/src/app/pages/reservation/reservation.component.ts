@@ -50,15 +50,15 @@ export class ReservationComponent implements OnInit {
     this.getCurrentUser();
     this.getSentParamsFromUrl();
     this.getRoomById(this.roomId);
-    
   }
 
 
   public getCurrentUser() {
-    const person = this.personService.getPersonById(this.userId).subscribe((data: Person) => {
-      person.unsubscribe();
-      this.user = data;
-      this.setFormValues();
+    const person = this.personService.getPersonById(this.userId).toPromise().then(data => {
+      if (data !== undefined) {
+        this.user = data;
+        this.setFormValues();
+      }
     })
   }
 
@@ -66,11 +66,14 @@ export class ReservationComponent implements OnInit {
     if (this.roomId == 0) {
       this.router.navigate(['/main']);
     }
-    this.roomService.getRoomById(id).subscribe((data: Room) => {
-      this.room = data;
-      this.taxForReservation = this.tax*this.reservedDays;
-      if(this.room.pricePerNight){
-        this.priceForReservation = this.room.pricePerNight*this.reservedDays;
+    this.roomService.getRoomById(id).toPromise().then(data => {
+      if (data !== undefined) {
+        this.room = data;
+        this.taxForReservation = this.tax * this.reservedDays;
+        if (this.room.pricePerNight) {
+          this.priceForReservation = this.room.pricePerNight * this.reservedDays;
+        }
+        this.afterPayment();
       }
     });
   }
@@ -81,11 +84,16 @@ export class ReservationComponent implements OnInit {
       this.persons = params['persons'];
       this.startDate = params['startDate'];
       this.endDate = params['endDate'];
-      if(params['success'] === "true"){
+    })
+    this.reservedDays = this.calculateDays(this.startDate, this.endDate);
+  }
+
+  public afterPayment() {
+    this.route.queryParams.subscribe(params => {
+      if (params['success'] === "true") {
         this.sendReservation();
       }
     })
-    this.reservedDays = this.calculateDays(this.startDate, this.endDate);
   }
 
   public setFormValues() {
@@ -122,10 +130,10 @@ export class ReservationComponent implements OnInit {
     const payment = {
       name: 'Room reservation',
       currency: 'HUF',
-      amount: price*100,
+      amount: price * 100,
       quantity: '1',
-      cancelUrl: 'http://localhost:4200/'+this.router.url,
-      successUrl: 'http://localhost:4200/'+this.router.url+"&success=true",
+      cancelUrl: 'http://localhost:4200/' + this.router.url,
+      successUrl: 'http://localhost:4200/' + this.router.url + "&success=true",
     };
 
     const stripe = await this.stripePromise;
@@ -141,7 +149,7 @@ export class ReservationComponent implements OnInit {
 
 
 
-  public succesAlert(){
+  public succesAlert() {
     Swal.fire({
       icon: 'success',
       title: 'Successful booking! You will be redirected to the profile page where you can check your reservation!',
@@ -151,15 +159,15 @@ export class ReservationComponent implements OnInit {
     this.router.navigate(['/profile'])
   }
 
-  public errorAlert(){
+  public errorAlert() {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: "Error! You have to give every data!",
     })
   }
-  
-  calculateDays(startDate: string, endDate: string){
+
+  calculateDays(startDate: string, endDate: string) {
     let checkInDate = new Date(startDate);
     let checkOutDate = new Date(endDate);
 
