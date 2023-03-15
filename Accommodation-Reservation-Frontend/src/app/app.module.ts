@@ -35,6 +35,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
 import { CreateAccommodationComponent } from './pages/create-accommodation/create-accommodation.component';
+import { CreateRoomComponent } from './pages/create-room/create-room.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { CreateAccommodationComponent } from './pages/create-accommodation/creat
     UserActivationComponent,
     AccommodationComponent,
     ReservationComponent,
-    CreateAccommodationComponent
+    CreateAccommodationComponent,
+    CreateRoomComponent
   ],
   imports: [
     BrowserModule,

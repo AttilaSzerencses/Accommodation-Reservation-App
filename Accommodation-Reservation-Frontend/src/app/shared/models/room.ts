@@ -1,3 +1,5 @@
+import { Accommodation } from "./accommodation";
+
 export interface Room {
     id?: number;
     name?: string;
@@ -5,5 +7,5 @@ export interface Room {
     size?: number;
     description?: string;
     bedSize?: number;
-    accommodation_id?: number;
+    accommodation?: Accommodation;
 }

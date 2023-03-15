@@ -22,8 +22,8 @@ public class Room {
     private int size;
     private String description;
     private int bedSize;
-    @ManyToOne()
-    @JoinColumn(name = "accommodation_id")
+    @ManyToOne(targetEntity = Accommodation.class, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "accommodation_id", referencedColumnName = "id")
     private Accommodation accommodation;
     @OneToMany()
     private List<Reservation> reservations;

@@ -55,6 +55,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'createRoom',
+    loadChildren: () => import('./pages/create-room/create-room.module').then(m => m.CreateRoomModule),
+    canActivate: [ AuthGuard ]
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'
