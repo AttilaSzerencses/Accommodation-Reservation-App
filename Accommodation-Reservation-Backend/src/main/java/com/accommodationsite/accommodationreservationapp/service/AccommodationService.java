@@ -1,6 +1,7 @@
 package com.accommodationsite.accommodationreservationapp.service;
 
 import com.accommodationsite.accommodationreservationapp.model.Accommodation;
+import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,15 @@ public class AccommodationService {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
+    @Autowired
+    private PersonService personService;
+
     public Accommodation addAccommodation(Accommodation accommodation){
+        if(accommodation.getPerson().getRole().equals("user")){
+            Person person = accommodation.getPerson();
+            person.setRole("accommodationProvider");
+            personService.updatePerson(person);
+        }
         return accommodationRepository.save(accommodation);
     }
 

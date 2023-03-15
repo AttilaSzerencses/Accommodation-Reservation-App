@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccommodationProviderGuard } from './shared/services/accommodation-provider.guard';
+import { AdminGuard } from './shared/services/admin.guard';
 import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
@@ -57,7 +59,13 @@ const routes: Routes = [
   {
     path: 'createRoom',
     loadChildren: () => import('./pages/create-room/create-room.module').then(m => m.CreateRoomModule),
-    canActivate: [ AuthGuard ]
+    canActivate: [ AccommodationProviderGuard ]
+  },
+
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [ AdminGuard ]
   },
 
   {
