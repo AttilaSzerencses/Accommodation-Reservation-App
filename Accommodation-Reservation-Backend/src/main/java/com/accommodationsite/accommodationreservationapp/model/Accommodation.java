@@ -30,7 +30,7 @@ public class Accommodation implements Serializable {
     private Address address;
 
     //Egy darab hotelhez, egy darab felhasználó tartozhat.
-    @OneToOne(targetEntity = Person.class, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Person.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 

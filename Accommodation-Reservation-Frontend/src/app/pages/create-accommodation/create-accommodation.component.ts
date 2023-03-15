@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Address } from 'src/app/shared/models/address';
+import { Accommodation } from 'src/app/shared/models/accommodation';
+import { Amenity } from 'src/app/shared/models/amenity';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { AccommodationService } from 'src/app/shared/services/accommodation.service';
+import { Router } from '@angular/router';
+import { PersonService } from 'src/app/shared/services/person.service';
+import { Person } from 'src/app/shared/models/person';
 
 @Component({
   selector: 'app-create-accommodation',
@@ -37,30 +46,92 @@ export class CreateAccommodationComponent implements OnInit {
   ];
 
   amenitiesForm: FormGroup;
+  userId: number = Number(localStorage.getItem("userId"))
+  user: Person;
 
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private router: Router, private personService: PersonService) { }
 
   ngOnInit(): void {
     this.amenitiesForm = this.formBuilder.group({});
     this.amenities.forEach(amenity => {
       this.amenitiesForm.addControl(amenity.id, this.formBuilder.control(false));
     });
-    
+    this.getCurrentUser();
+  }
+
+  public getCurrentUser() {
+    const person = this.personService.getPersonById(this.userId).subscribe((data: Person) => {
+      person.unsubscribe();
+      this.user = data;
+    })
   }
   
 
+
   getCheckedAmenities() {
-    const checkedAmenities = [];
+    let checkedAmenities: Array<Amenity> = [];
     const formValue = this.amenitiesForm.getRawValue();
     for (const key in formValue) {
       if (formValue[key]) {
-        checkedAmenities.push(key);
+        let amenity: Amenity = {
+          name: key
+        }
+        checkedAmenities.push(amenity);
       }
     }
-    console.log(checkedAmenities);
     
     return checkedAmenities;
+  }
+
+  saveAccommodation() {
+    if(this.accommodationForm.valid) {
+      let accommodationAddress: Address = {
+        postCode: 1,
+        city: this.accommodationForm.get('city')?.value,
+        street: this.accommodationForm.get('street')?.value,
+        houseNumber: this.accommodationForm.get('houseNumber')?.value,
+      };
+      let amenitisForCreation = this.getCheckedAmenities();
+      let accommodation: Accommodation = {
+        name: this.accommodationForm.get('acoomodationName')?.value,
+        phoneNumber: this.accommodationForm.get('phoneNumber')?.value,
+        mainPagePicture: "hotel1.png",
+        description: this.accommodationForm.get('description')?.value,
+        city: this.accommodationForm.get('city')?.value,
+        address: accommodationAddress,
+        amenities: amenitisForCreation,
+        person: this.user
+      };
+
+      this.accommodationService.addAccommodation(accommodation).subscribe(
+        (response: any) => {
+          this.succesAlert();
+        },
+        (error: HttpErrorResponse) => {
+          this.errorAlert();
+        });
+
+    } else {
+      this.errorAlert();
+    }
+  }
+
+  public errorAlert(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Something is missing!',
+      text: "You have to fill every field!",
+    })
+  }
+
+  public succesAlert(){
+    Swal.fire({
+      icon: 'success',
+      title: 'Successfull creation!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate(['/profile'])
   }
 
 }

@@ -9,7 +9,7 @@
                     </h1>
                     <button
                         class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                        type="button" (click)="getCheckedAmenities()">
+                        type="button" (click)="saveAccommodation()">
                         Save
                     </button>
                 </div>
@@ -25,7 +25,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Accommodation name
                                 </label>
-                                <input type="text" formControlName="acoomodationName"
+                                <input type="text" formControlName="acoomodationName" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Phone Number
                                 </label>
-                                <input type="text" formControlName="phoneNumber"
+                                <input type="text" formControlName="phoneNumber" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Postal Code
                                 </label>
-                                <input type="text" formControlName="postalCode"
+                                <input type="number" formControlName="postalCode" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     City
                                 </label>
-                                <input type="text" formControlName="city"
+                                <input type="text" formControlName="city" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Street
                                 </label>
-                                <input type="text" formControlName="street"
+                                <input type="text" formControlName="street" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     House Number
                                 </label>
-                                <input type="text" formControlName="houseNumber"
+                                <input type="text" formControlName="houseNumber" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                             </div>
                         </div>
@@ -94,7 +94,7 @@
 
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     for="mainpage_picture">Upload file</label>
-                                <input
+                                <input required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     id="mainpage_picture" type="file" formControlName="mainPagePicture">
                             </div>
@@ -111,7 +111,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Description
                                 </label>
-                                <textarea type="text" formControlName="description"
+                                <textarea type="text" formControlName="description" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     rows="4"></textarea>
                             </div>
