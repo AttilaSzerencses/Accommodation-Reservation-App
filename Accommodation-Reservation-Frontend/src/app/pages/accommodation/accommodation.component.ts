@@ -48,7 +48,6 @@ export class AccommodationComponent implements OnInit {
     })
     this.range.get('start')?.setValue(this.searchStartDate);
     this.range.get('end')?.setValue(this.searchEndDate);
-
   }
 
 
@@ -86,20 +85,12 @@ export class AccommodationComponent implements OnInit {
       this.roomService.getAvailableRoomsWithAccomodationIdAndDate(this.accommodationID, this.searchStartDate, this.searchEndDate, this.persons).toPromise().then(data => {
         if (data !== undefined) {
           this.freeRoomsInDate = data;
+          this.notFreeRoomsInDate = rooms.filter(room => {
+            return !this.freeRoomsInDate.some(freeRoom => freeRoom.id === room.id);
+          });
         } else {
           this.freeRoomsInDate = [];
-        }
-
-        if(this.freeRoomsInDate.length === 0){
           this.notFreeRoomsInDate = rooms;
-        } else {
-          for (let room of rooms) {
-            for (let freeRoom of this.freeRoomsInDate) {
-              if (room.id !== freeRoom.id) {
-                this.notFreeRoomsInDate.push(room);
-              }
-            }
-          }
         }
       });
     }
@@ -127,8 +118,6 @@ export class AccommodationComponent implements OnInit {
     this.searchStartDate = this.datePipe.transform(new Date(this.range.get("start")?.value), "yyyy-MM-dd") || "";
     this.searchEndDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd") || "";
     window.open(`http://localhost:4200/accommodation?accommodation=${this.accommodationID}&persons=${this.persons}&startDate=${this.searchStartDate}&endDate=${this.searchEndDate}`, '_self');
-
-    //IT'S SHOULD GET THE FREE ROOMS
   }
 
   public errorAlertForNotLoggedInUser() {
