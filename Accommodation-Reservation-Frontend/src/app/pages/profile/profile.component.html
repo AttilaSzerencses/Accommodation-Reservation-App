@@ -22,7 +22,7 @@
         <p class="font-light text-gray-600 mt-3">Street: {{user.address?.street}}</p>
         <p class="font-light text-gray-600 mt-3">House Number: {{user.address?.houseNumber}}</p>
       </div>
-      <div class="text-center pb-2">
+      <div class="text-center pb-2 border-b">
         <h2 class="flex justify-center mt-5 mb-3">You can update your own data here:</h2>
         <button
           class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -39,6 +39,24 @@
           type="button">
           Admin page
         </a>
+      </div>
+      <div *ngIf="!isAccommodationProvider()" class="text-center pb-2">
+        <h2 class="flex justify-center mt-5 mb-3">Do you want to be an accommodation provider?</h2>
+        <h3 class="flex justify-center mt-5 mb-3">Create your first accommodation here!</h3>
+        <button
+          class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button" (click)="redirectToCreateAccommodation()">
+          Create accommodation
+        </button>
+      </div>
+      <div *ngIf="isAccommodationProvider()" class="text-center pb-2">
+        <h2 class="flex justify-center mt-5 mb-3">You are an {{this.user.role}}, welcome!</h2>
+        <h3 class="flex justify-center mt-5 mb-3">Manage your accommodations here!</h3>
+        <button
+          class="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button" (click)="redirectToMyAccommodations()">
+          Manage accommdations
+        </button>
       </div>
       <div *ngIf="showModal"
         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">

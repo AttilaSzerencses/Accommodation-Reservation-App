@@ -57,6 +57,24 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  public isAccommodationProvider() {
+    console.log(this.user.role);
+    
+    if(this.user.role === "admin" || this.user.role === "accommodationProvider"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public redirectToMyAccommodations() {
+    this.router.navigate(['/main'])
+  }
+
+  public redirectToCreateAccommodation() {
+    this.router.navigate(['/createAccommodation'])
+  }
+
   toggleModal(identifier: string){
     this.modalIdentifier = identifier;
     this.setFormValues();
