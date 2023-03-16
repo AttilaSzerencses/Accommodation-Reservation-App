@@ -1,0 +1,46 @@
+<div class="container lg:w-4/5 mx-auto flex flex-col pb-5">
+    <div>
+        <h2 class="mx-auto text-center">Your accommodations:</h2>
+    </div>
+    <div *ngFor="let accommodation of accommodations ; index as i" class="border-2 border-blue-300 rounded-sm mt-2">
+        <div
+            class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 w-7/8 mx-2 cursor-pointer">
+            <div class="h-48 w-auto">
+                <img class="inset-0 h-full w-72 object-cover object-center"
+                    :src="../../../assets/img/{{accommodation.mainPagePicture}}" />
+            </div>
+            <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
+                <h3 class="font-semibold text-lg leading-tight truncate">{{ accommodation.name }}</h3>
+                <p class="mt-2">
+                    {{accommodation.description}}
+                </p>
+                <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                    {{ accommodation.city }}
+                </p>
+            </div>
+        </div>
+        <div *ngFor="let room of rooms; index as i">
+            <div *ngIf="IsIdMatch(accommodation, room)"
+                class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 mb-4 w-7/8 mx-2 cursor-pointer">
+                <div class="h-48 w-auto">
+                    <img class="inset-0 h-full w-72 object-cover object-center"
+                        :src="../../../assets/img/hotel2.jpg" />
+                </div>
+                <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
+                    <h3 class="font-semibold text-lg leading-tight truncate">{{ room.name }}</h3>
+                    <p class="mt-2">
+                        {{room.description}}
+                    </p>
+                    <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                        Size: {{ room.size }} m2
+                    </p>
+                    <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                        Capacity: {{ room.bedSize }} people
+                    </p>
+                    <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                        Price: {{ room.pricePerNight }} ft
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

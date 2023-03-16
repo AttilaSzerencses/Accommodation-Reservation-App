@@ -95,7 +95,7 @@ export class CreateAccommodationComponent implements OnInit {
       let accommodation: Accommodation = {
         name: this.accommodationForm.get('acoomodationName')?.value,
         phoneNumber: this.accommodationForm.get('phoneNumber')?.value,
-        mainPagePicture: "hotel1.png",
+        mainPagePicture: "hotel1.jpg",
         description: this.accommodationForm.get('description')?.value,
         city: this.accommodationForm.get('city')?.value,
         address: accommodationAddress,

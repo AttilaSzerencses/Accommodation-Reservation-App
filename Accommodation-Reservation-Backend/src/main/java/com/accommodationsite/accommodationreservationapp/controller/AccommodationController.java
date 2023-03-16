@@ -38,6 +38,12 @@ public class AccommodationController {
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
+    @GetMapping("/findAllByPersonId/{personId}")
+    public ResponseEntity<List<Accommodation>> getAllAccommodationByPersonId(@PathVariable("personId") int personId) {
+        List<Accommodation> accommodations  = accommodationService.findAllAccommodationByPersonId(personId);
+        return new ResponseEntity<>(accommodations, HttpStatus.OK);
+    }
+
     @GetMapping("/findById/{id}")
     public ResponseEntity<Accommodation> getAccommodationByCity(@PathVariable("id") Integer id) {
         Accommodation accommodation  = accommodationService.findAccommodationById(id);

@@ -69,6 +69,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'accommodationManagement',
+    loadChildren: () => import('./pages/accommodation-management/accommodation-management.module').then(m => m.AccommodationManagementModule),
+    canActivate: [ AccommodationProviderGuard ]
+  },
+
+  {
     path: '',
     redirectTo: '/main',
     pathMatch: 'full'

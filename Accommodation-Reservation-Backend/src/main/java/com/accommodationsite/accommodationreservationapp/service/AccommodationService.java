@@ -39,6 +39,10 @@ public class AccommodationService {
         return accommodationRepository.findByCity(city).orElse(null);
     }
 
+    public List<Accommodation> findAllAccommodationByPersonId(int userId){
+        return accommodationRepository.findAllByPersonId(userId).orElse(null);
+    }
+
     public Accommodation findAccommodationById(int id){
         return accommodationRepository.findById(id).orElse(null);
     }

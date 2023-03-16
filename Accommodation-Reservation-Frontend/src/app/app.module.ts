@@ -36,6 +36,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
 import { CreateAccommodationComponent } from './pages/create-accommodation/create-accommodation.component';
 import { CreateRoomComponent } from './pages/create-room/create-room.component';
+import { AccommodationManagementComponent } from './pages/accommodation-management/accommodation-management.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { CreateRoomComponent } from './pages/create-room/create-room.component';
     AccommodationComponent,
     ReservationComponent,
     CreateAccommodationComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    AccommodationManagementComponent
   ],
   imports: [
     BrowserModule,

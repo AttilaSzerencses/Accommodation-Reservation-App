@@ -1,6 +1,7 @@
 import { Address } from "./address";
 import { Amenity } from "./amenity";
 import { Person } from "./person";
+import { Room } from "./room";
 
 export interface Accommodation {
     id?: number;
@@ -10,7 +11,7 @@ export interface Accommodation {
     description?: string;
     city: string;
     address?: Address;
-    rooms?: [];
+    rooms?: Room[];
     amenities?: Amenity[];
     person?: Person;
 }

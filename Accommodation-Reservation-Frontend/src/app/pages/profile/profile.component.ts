@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public redirectToMyAccommodations() {
-    this.router.navigate(['/main'])
+    this.router.navigate(['/accommodationManagement'])
   }
 
   public redirectToCreateAccommodation() {

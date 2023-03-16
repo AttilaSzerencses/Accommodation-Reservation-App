@@ -23,6 +23,10 @@ export class AccommodationService {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByCity/${city}`);
   }
 
+  public getAllAccommodationByPersonId(personId: number): Observable<Accommodation[]>{
+    return this.http.get<Accommodation[]>(`${this.apiServerUrl}/request/accommodation/findAllByPersonId/${personId}`);
+  }
+
   public getAccommodationByName(name: string): Observable<Accommodation>{
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByName/${name}`);
   }
