@@ -48,6 +48,7 @@ export class CreateAccommodationComponent implements OnInit {
   amenitiesForm: FormGroup;
   userId: number = Number(localStorage.getItem("userId"))
   user: Person;
+  mainPagePicture: File;
 
   constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private router: Router, private personService: PersonService) { }
 
@@ -64,6 +65,21 @@ export class CreateAccommodationComponent implements OnInit {
       person.unsubscribe();
       this.user = data;
     })
+  }
+
+  generateRandomString(length: number): string {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.mainPagePicture = file;
   }
   
 
@@ -95,7 +111,6 @@ export class CreateAccommodationComponent implements OnInit {
       let accommodation: Accommodation = {
         name: this.accommodationForm.get('acoomodationName')?.value,
         phoneNumber: this.accommodationForm.get('phoneNumber')?.value,
-        mainPagePicture: "hotel1.jpg",
         description: this.accommodationForm.get('description')?.value,
         city: this.accommodationForm.get('city')?.value,
         address: accommodationAddress,
@@ -103,7 +118,7 @@ export class CreateAccommodationComponent implements OnInit {
         person: this.user
       };
 
-      this.accommodationService.addAccommodation(accommodation).subscribe(
+      this.accommodationService.addAccommodation(accommodation, this.mainPagePicture).subscribe(
         (response: any) => {
           this.succesAlert();
         },

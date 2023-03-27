@@ -58,8 +58,6 @@ export class ProfileComponent implements OnInit {
   }
 
   public isAccommodationProvider() {
-    console.log(this.user.role);
-    
     if(this.user.role === "admin" || this.user.role === "accommodationProvider"){
       return true;
     } else {

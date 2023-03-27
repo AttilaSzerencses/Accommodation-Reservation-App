@@ -96,7 +96,7 @@
                                     for="mainpage_picture">Upload file</label>
                                 <input required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    id="mainpage_picture" type="file" formControlName="mainPagePicture">
+                                    id="mainpage_picture" type="file" formControlName="mainPagePicture" (change)="onFileSelected($event)">
                             </div>
                         </div>
                     </div>
