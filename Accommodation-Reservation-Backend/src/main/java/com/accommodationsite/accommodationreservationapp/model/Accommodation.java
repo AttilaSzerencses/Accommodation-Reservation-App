@@ -21,6 +21,8 @@ public class Accommodation implements Serializable {
     @Column(nullable = false)
     private String name;
     private String mainPagePicture;
+    private String secondImage;
+    private String thirdImage;
     private String description;
     private String city;
 

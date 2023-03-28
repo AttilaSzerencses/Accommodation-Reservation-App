@@ -16,8 +16,10 @@ export class CreateRoomComponent implements OnInit {
 
   accommodationId: number;
   accommodation: Accommodation;
+  image: File;
   roomForm = new FormGroup({
     roomName: new FormControl(),
+    image: new FormControl(),
     pricePerNight: new FormControl(),
     size: new FormControl(),
     description: new FormControl(),
@@ -48,6 +50,11 @@ export class CreateRoomComponent implements OnInit {
     });
   }
 
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    this.image = file;
+  }
+
   saveRoom() {
     if(this.roomForm.valid) {
     let room: Room = {
@@ -58,7 +65,7 @@ export class CreateRoomComponent implements OnInit {
       description: this.roomForm.get('description')?.value,
       accommodation: this.accommodation
     };
-    this.roomService.addRoom(room).subscribe(
+    this.roomService.addRoom(room, this.image).subscribe(
       (response: any) => {
         this.succesAlert();
       },
@@ -66,7 +73,7 @@ export class CreateRoomComponent implements OnInit {
         this.errorAlert();
       });
     } else {
-
+      this.errorAlert();
     }
   }
 

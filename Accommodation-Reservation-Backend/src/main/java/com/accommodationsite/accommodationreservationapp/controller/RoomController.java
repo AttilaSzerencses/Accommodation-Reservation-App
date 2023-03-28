@@ -1,12 +1,16 @@
 package com.accommodationsite.accommodationreservationapp.controller;
 
+import com.accommodationsite.accommodationreservationapp.model.Accommodation;
 import com.accommodationsite.accommodationreservationapp.model.Room;
+import com.accommodationsite.accommodationreservationapp.service.AccommodationService;
 import com.accommodationsite.accommodationreservationapp.service.RoomService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,9 +21,19 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private AccommodationService accommodationService;
+
     @PostMapping("/add")
-    public void addRoom(@RequestBody Room room) {
+    public void addRoom(@RequestParam("image") MultipartFile image, @RequestParam("room") String roomJson) {
+        try{
+            Room room = new ObjectMapper().readValue(roomJson, Room.class);
+            String pathForRoomImage = accommodationService.saveImageForAccommodationAndReturnPath(image);
+            room.setRoomImage(pathForRoomImage);
             roomService.addRoom(room);
+        } catch (Exception e){
+            System.out.println("Something went wrong with the room creation!");
+        }
     }
 
     @GetMapping("/all")

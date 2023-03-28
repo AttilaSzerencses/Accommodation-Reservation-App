@@ -25,28 +25,18 @@ public class AccommodationController {
     private AccommodationService accommodationService;
 
     @PostMapping( "/add")
-    public void addAccommodation(@RequestParam("image") MultipartFile image, @RequestParam("accommodation") String accommodationJson) {
+    public void addAccommodation(@RequestParam("image") MultipartFile image, @RequestParam("secondImage") MultipartFile secondImage, @RequestParam("thirdImage") MultipartFile thirdImage, @RequestParam("accommodation") String accommodationJson) {
         try{
             Accommodation accommodation = new ObjectMapper().readValue(accommodationJson, Accommodation.class);
-            if (image.isEmpty()) {
-                System.out.println("Can't save the file because it's empty.");
-            } {
-                String fileName = StringUtils.cleanPath(image.getOriginalFilename());
-                String fileExtension = StringUtils.getFilenameExtension(fileName);
-                String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
-                Path path = Paths.get("src/main/resources/images/" + newFileName);
-                Path path2 = Paths.get("target/classes/images/"  + newFileName);
-                accommodation.setMainPagePicture("http://localhost:8080/images/"+newFileName);
-                try {
-                    Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-                    Files.copy(image.getInputStream(), path2, StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException e) {
-                    System.out.println("Something is bad with the file, so we can't save it.");
-                }
-            }
+            String pathForMainPagePicture = accommodationService.saveImageForAccommodationAndReturnPath(image);
+            String pathForSecondPicture = accommodationService.saveImageForAccommodationAndReturnPath(secondImage);
+            String pathForThirdPicture = accommodationService.saveImageForAccommodationAndReturnPath(thirdImage);
+            accommodation.setMainPagePicture(pathForMainPagePicture);
+            accommodation.setSecondImage(pathForSecondPicture);
+            accommodation.setThirdImage(pathForThirdPicture);
             accommodationService.addAccommodation(accommodation);
         } catch (Exception e) {
-            System.out.println("Something wen't wrong with the accommodation creation!");
+            System.out.println("Something went wrong with the accommodation creation!");
         }
     }
 

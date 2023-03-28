@@ -31,9 +31,11 @@ export class AccommodationService {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByName/${name}`);
   }
 
-  public addAccommodation(accommodation: Accommodation, image: File): Observable<string> {
+  public addAccommodation(accommodation: Accommodation, image: File, secondImage: File, thirdImage: File): Observable<string> {
     const formData = new FormData();
     formData.append('image', image);
+    formData.append('secondImage', secondImage);
+    formData.append("thirdImage", thirdImage)
     formData.append('accommodation', JSON.stringify(accommodation));
     return this.http.post<string>(`${this.apiServerUrl}/request/accommodation/add`, formData);
   }

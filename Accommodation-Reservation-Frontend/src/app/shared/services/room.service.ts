@@ -11,8 +11,11 @@ export class RoomService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
 
-  public addRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(`${this.apiServerUrl}/request/room/add`, room);
+  public addRoom(room: Room, image: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('room', JSON.stringify(room));
+    return this.http.post<string>(`${this.apiServerUrl}/request/room/add`, formData);
   }
 
   public getRooms(): Observable<Room[]>{

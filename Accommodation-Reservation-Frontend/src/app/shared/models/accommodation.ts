@@ -8,6 +8,8 @@ export interface Accommodation {
     name: string;
     phoneNumber?: string;
     mainPagePicture?: string;
+    secondImage?: string;
+    thirdImage?: string;
     description?: string;
     city: string;
     address?: Address;

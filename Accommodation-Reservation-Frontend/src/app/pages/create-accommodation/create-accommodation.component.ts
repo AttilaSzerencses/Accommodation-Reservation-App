@@ -25,6 +25,8 @@ export class CreateAccommodationComponent implements OnInit {
     street: new FormControl(),
     houseNumber: new FormControl(),
     mainPagePicture: new FormControl(),
+    secondPicture: new FormControl(),
+    thirdPicture: new FormControl(),
     description: new FormControl(),
   });
 
@@ -49,6 +51,8 @@ export class CreateAccommodationComponent implements OnInit {
   userId: number = Number(localStorage.getItem("userId"))
   user: Person;
   mainPagePicture: File;
+  secondImage: File;
+  thirdImage: File;
 
   constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private router: Router, private personService: PersonService) { }
 
@@ -77,12 +81,20 @@ export class CreateAccommodationComponent implements OnInit {
     return result;
   }
 
-  onFileSelected(event: any) {
+  onMainPagePictureSelected(event: any) {
     const file = event.target.files[0];
     this.mainPagePicture = file;
   }
   
+  onSecondImageSelected(event: any) {
+    const file = event.target.files[0];
+    this.secondImage = file;
+  }
 
+  onThirdImageSelected(event: any) {
+    const file = event.target.files[0];
+    this.thirdImage = file;
+  }
 
   getCheckedAmenities() {
     let checkedAmenities: Array<Amenity> = [];
@@ -118,7 +130,7 @@ export class CreateAccommodationComponent implements OnInit {
         person: this.user
       };
 
-      this.accommodationService.addAccommodation(accommodation, this.mainPagePicture).subscribe(
+      this.accommodationService.addAccommodation(accommodation, this.mainPagePicture, this.secondImage, this.thirdImage).subscribe(
         (response: any) => {
           this.succesAlert();
         },
