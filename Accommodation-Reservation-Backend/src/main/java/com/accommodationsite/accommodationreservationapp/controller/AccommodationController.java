@@ -25,7 +25,7 @@ public class AccommodationController {
     private AccommodationService accommodationService;
 
     @PostMapping( "/add")
-    public void addAccommodation(@RequestParam("image") MultipartFile image, @RequestParam("secondImage") MultipartFile secondImage, @RequestParam("thirdImage") MultipartFile thirdImage, @RequestParam("accommodation") String accommodationJson) {
+    public ResponseEntity<String> addAccommodation(@RequestParam("image") MultipartFile image, @RequestParam("secondImage") MultipartFile secondImage, @RequestParam("thirdImage") MultipartFile thirdImage, @RequestParam("accommodation") String accommodationJson) {
         try{
             Accommodation accommodation = new ObjectMapper().readValue(accommodationJson, Accommodation.class);
             String pathForMainPagePicture = accommodationService.saveImageForAccommodationAndReturnPath(image);
@@ -35,8 +35,9 @@ public class AccommodationController {
             accommodation.setSecondImage(pathForSecondPicture);
             accommodation.setThirdImage(pathForThirdPicture);
             accommodationService.addAccommodation(accommodation);
+            return new ResponseEntity<String>("Succesfull creation", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            System.out.println("Something went wrong with the accommodation creation!");
+            return new ResponseEntity<String>("Error", HttpStatus.BAD_REQUEST);
         }
     }
 

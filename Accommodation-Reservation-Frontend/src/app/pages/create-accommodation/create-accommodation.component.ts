@@ -146,8 +146,8 @@ export class CreateAccommodationComponent implements OnInit {
   public errorAlert(){
     Swal.fire({
       icon: 'error',
-      title: 'Something is missing!',
-      text: "You have to fill every field!",
+      title: 'Something is missing or the given data is incorrect!',
+      text: "You have to fill every field and check every data is correct!",
     })
   }
 

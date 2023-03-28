@@ -25,14 +25,15 @@ public class RoomController {
     private AccommodationService accommodationService;
 
     @PostMapping("/add")
-    public void addRoom(@RequestParam("image") MultipartFile image, @RequestParam("room") String roomJson) {
+    public ResponseEntity<String> addRoom(@RequestParam("image") MultipartFile image, @RequestParam("room") String roomJson) {
         try{
             Room room = new ObjectMapper().readValue(roomJson, Room.class);
             String pathForRoomImage = accommodationService.saveImageForAccommodationAndReturnPath(image);
             room.setRoomImage(pathForRoomImage);
             roomService.addRoom(room);
+            return new ResponseEntity<String>("Succesfull creation", HttpStatus.NO_CONTENT);
         } catch (Exception e){
-            System.out.println("Something went wrong with the room creation!");
+            return new ResponseEntity<String>("Error", HttpStatus.BAD_REQUEST);
         }
     }
 
