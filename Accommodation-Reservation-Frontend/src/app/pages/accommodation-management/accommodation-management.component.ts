@@ -51,7 +51,7 @@ export class AccommodationManagementComponent implements OnInit {
   }
 
   public updateRoom(accommodation: Accommodation, room: Room){
-
+    window.open(`http://localhost:4200/createRoom?accommodation=${accommodation.id}&room=${room.id}`, '_self');
   }
 
   public deleteRoom(accommodation: Accommodation, room: Room){

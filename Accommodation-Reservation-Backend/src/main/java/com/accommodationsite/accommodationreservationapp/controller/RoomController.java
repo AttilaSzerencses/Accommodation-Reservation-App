@@ -5,6 +5,7 @@ import com.accommodationsite.accommodationreservationapp.model.Room;
 import com.accommodationsite.accommodationreservationapp.service.AccommodationService;
 import com.accommodationsite.accommodationreservationapp.service.RoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class RoomController {
             String pathForRoomImage = accommodationService.saveImageForAccommodationAndReturnPath(image);
             room.setRoomImage(pathForRoomImage);
             roomService.addRoom(room);
-            return new ResponseEntity<String>("Succesfull creation", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Successful creation", HttpStatus.NO_CONTENT);
         } catch (Exception e){
             return new ResponseEntity<String>("Error", HttpStatus.BAD_REQUEST);
         }
@@ -69,9 +70,18 @@ public class RoomController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Room> updatePerson(@RequestBody Room room) {
-        Room updateRoom = roomService.updateRoom(room);
-        return new ResponseEntity<>(updateRoom, HttpStatus.OK);
+    public ResponseEntity<String> updatePerson(@RequestParam(value = "image", required = false) MultipartFile image, @RequestParam("room") String roomJson) {
+        try{
+            Room room = new ObjectMapper().readValue(roomJson, Room.class);
+            if(image != null) {
+                String pathForRoomImage = accommodationService.saveImageForAccommodationAndReturnPath(image);
+                room.setRoomImage(pathForRoomImage);
+            }
+            roomService.updateRoom(room);
+            return new ResponseEntity<String>("Successful update!", HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<String>("Error on update!", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/deleteById/{id}")

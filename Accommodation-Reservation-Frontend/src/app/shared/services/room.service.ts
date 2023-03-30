@@ -30,8 +30,11 @@ export class RoomService {
     return this.http.get<Room>(`${this.apiServerUrl}/request/room/findById/${id}`);
   }
 
-  public updateRoom(room: Room): Observable<Room> {
-    return this.http.put<Room>(`${this.apiServerUrl}/request/room/update`, room);
+  public updateRoom(room: Room, image: File): Observable<String> {
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('room', JSON.stringify(room));
+    return this.http.put<String>(`${this.apiServerUrl}/request/room/update`, formData);
   }
 
   public deleteRoomById(id: number): Observable<void> {

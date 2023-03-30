@@ -16,7 +16,10 @@ export class CreateRoomComponent implements OnInit {
 
   accommodationId: number;
   accommodation: Accommodation;
+  roomId: number;
+  room: Room;
   image: File;
+  createOrUpdate = "Create";
   roomForm = new FormGroup({
     roomName: new FormControl(),
     image: new FormControl(),
@@ -31,11 +34,16 @@ export class CreateRoomComponent implements OnInit {
   ngOnInit(): void {
     this.getSentParamsFromUrl();
     this.getAccommodation();
+    if(this.roomId !== 0){
+      this.createOrUpdate = "Update";
+      this.getRoom();
+    }
   }
 
   public getSentParamsFromUrl() {
     this.route.queryParams.subscribe(params => {
       this.accommodationId = params['accommodation'] || 0;
+      this.roomId = params['room'] || 0;
     })
   }
 
@@ -50,9 +58,34 @@ export class CreateRoomComponent implements OnInit {
     });
   }
 
+  public getRoom() {
+    this.roomService.getRoomById(this.roomId).toPromise().then(data => {
+      if (data != undefined){
+        this.room = data;
+        this.setFormValues();
+      }
+    });
+  }
+
+  public setFormValues() {
+    this.roomForm.get('roomName')?.setValue(this.room.name);
+    this.roomForm.get('pricePerNight')?.setValue(this.room.pricePerNight);
+    this.roomForm.get('size')?.setValue(this.room.size);
+    this.roomForm.get('description')?.setValue(this.room.description);
+    this.roomForm.get('bedSize')?.setValue(this.room.bedSize);
+  }
+
   onImageSelected(event: any) {
     const file = event.target.files[0];
     this.image = file;
+  }
+
+  saveOrUpdateRoom(){
+    if(this.roomId !== 0){
+      this.updateRoom();
+    } else{
+      this.saveRoom();
+    }
   }
 
   saveRoom() {
@@ -77,6 +110,26 @@ export class CreateRoomComponent implements OnInit {
     }
   }
 
+  updateRoom() {
+    if(this.roomForm.valid) {
+      let updatedRoom = this.room;
+      updatedRoom.name = this.roomForm.get('roomName')?.value;
+      updatedRoom.pricePerNight = this.roomForm.get('pricePerNight')?.value;
+      updatedRoom.size = this.roomForm.get('size')?.value;
+      updatedRoom.bedSize = this.roomForm.get('bedSize')?.value;
+      updatedRoom.description = this.roomForm.get('description')?.value;
+      this.roomService.updateRoom(updatedRoom, this.image).subscribe(
+        (response: any) => {
+          this.succesAlert();
+        },
+        (error: HttpErrorResponse) => {
+          this.errorAlert();
+        });
+    } else{
+      this.errorAlert();
+    }
+  }
+
   public errorAlert(){
     Swal.fire({
       icon: 'error',
@@ -92,7 +145,7 @@ export class CreateRoomComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    this.router.navigate(['/profile'])
+    this.router.navigate(['/accommodationManagement'])
   }
 
 }
