@@ -61,6 +61,7 @@ export class CreateAccommodationComponent implements OnInit {
 
   ngOnInit(): void {
     this.amenitiesForm = this.formBuilder.group({});
+    this.setAmenitiesStateForBasic();
     this.getCurrentUser();
     this.getSentParamsFromUrl();
   }
@@ -71,8 +72,6 @@ export class CreateAccommodationComponent implements OnInit {
       if (this.accommodationId !== 0) {
         this.createOrUpdate = "Update";
         this.getAccommodation();
-      } else {
-        this.setAmenitiesStateForCreate();
       }
     })
   }
@@ -88,31 +87,30 @@ export class CreateAccommodationComponent implements OnInit {
     this.accommodationService.getAccommodationById(this.accommodationId).toPromise().then(data => {
       if (data != undefined) {
         this.accommodation = data;
-        this.setFormValues();        
-        this.setAmenitiesStateForUpdate();
+        this.setFormValues();
       }
     });
   }
 
-  public setAmenitiesStateForCreate() {
-      this.amenities.forEach(amenity => {
-          this.amenitiesForm.addControl(amenity.id, this.formBuilder.control(false))
-      });  
-  }
-
-  public setAmenitiesStateForUpdate() {
-    if (this.accommodationId !== 0){
-      let amenityNames: Array<String> = [];
-    this.accommodation.amenities?.forEach(amenity => {
-      amenityNames.push(amenity.name);
-    })
+  public setAmenitiesStateForBasic() {
     this.amenities.forEach(amenity => {
-      if(amenityNames.includes(amenity.id)){
-        this.amenitiesForm.addControl(amenity.id, this.formBuilder.control(true))
-      } else {
-        this.amenitiesForm.addControl(amenity.id, this.formBuilder.control(false))
-      }
+      this.amenitiesForm.addControl(amenity.id, this.formBuilder.control(false))
     });
+  }
+
+  setAmenityFormValues() {
+    if (this.accommodationId !== 0) {
+      let amenityNames: Array<String> = [];
+      this.accommodation.amenities?.forEach(amenity => {
+        amenityNames.push(amenity.name);
+      })
+      this.amenities.forEach(amenity => {
+        if (amenityNames.includes(amenity.name)) {
+          this.amenitiesForm.setControl(amenity.id, this.formBuilder.control(true))
+        } else {
+          this.amenitiesForm.setControl(amenity.id, this.formBuilder.control(false))
+        }
+      });
     }
   }
 
@@ -124,6 +122,7 @@ export class CreateAccommodationComponent implements OnInit {
     this.accommodationForm.get('street')?.setValue(this.accommodation.address?.street);
     this.accommodationForm.get('houseNumber')?.setValue(this.accommodation.address?.houseNumber);
     this.accommodationForm.get('description')?.setValue(this.accommodation.description);
+    this.setAmenityFormValues();
   }
 
   onMainPagePictureSelected(event: any) {
@@ -210,7 +209,7 @@ export class CreateAccommodationComponent implements OnInit {
       updateAccommodation.description = this.accommodationForm.get('description')?.value;
       updateAccommodation.city = this.accommodationForm.get('city')?.value;
       updateAccommodation.address = updatedAccommodationAddress;
-      //updateAccommodation.amenities = amenitisUpdatedAmenitis;
+      updateAccommodation.amenities = amenitisUpdatedAmenitis;
 
       this.accommodationService.updateAccommodation(updateAccommodation, this.mainPagePicture, this.secondImage, this.thirdImage).subscribe(
         (response: any) => {

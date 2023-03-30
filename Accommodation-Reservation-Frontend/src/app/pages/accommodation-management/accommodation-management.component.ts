@@ -63,8 +63,6 @@ export class AccommodationManagementComponent implements OnInit {
   }
 
   public IsIdMatch(accommoditon: Accommodation, room: Room) {
-    console.log(this.rooms.length);
-    
     if (accommoditon === undefined || room === undefined) return false;
     if (accommoditon.id === room.accommodation?.id){
       return true;
