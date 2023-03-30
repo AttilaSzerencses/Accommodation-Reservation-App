@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Error! IDE JÖN A HTTP ERROR RESPONSE TEXT",
+        text: "Username or password is incorrect!",
       })
     }
     

@@ -65,7 +65,7 @@ export class RegistrationComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "Error! IDE JÖN A HTTP ERROR RESPONSE TEXT",
+      text: "Unsuccessful registration. Check your details and try again!",
     })
   }
 

@@ -8,7 +8,7 @@
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username" type="text" formControlName="username" placeholder="Username" required="true">
+          id="username" type="text" formControlName="username" placeholder="Username" required="true" maxlength="50">
       </div>
       <div class="mb-6">
         <label class="block text-gray-500 text-sm font-bold mb-2" for="password">
@@ -17,7 +17,7 @@
         <div class="relative w-full">
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="password" type="{{ passwordhidden ? 'text' : 'password' }}" formControlName="password" placeholder="**********" required="true">
+            id="password" type="{{ passwordhidden ? 'text' : 'password' }}" formControlName="password" placeholder="**********" required="true" maxlength="50">
           <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
             <svg *ngIf="passwordhidden" (click)="hidePassword()" class="w-5 h-5 cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 2L22 22" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
