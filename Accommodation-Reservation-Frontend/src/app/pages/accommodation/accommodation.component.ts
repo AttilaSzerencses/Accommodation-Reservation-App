@@ -79,8 +79,8 @@ export class AccommodationComponent implements OnInit {
     }
     this.roomService.getRoomsByAccommodationId(accommodationId).toPromise().then(data => {
       if (data !== undefined) {
-        this.rooms = data;
-        this.freeRoomsInDate = data;
+        this.rooms = data.filter(room => room.status !== "inactive");
+        this.freeRoomsInDate = data.filter(room => room.status !== "inactive");
       } else {
         this.rooms = [];
         this.freeRoomsInDate = [];
@@ -95,7 +95,7 @@ export class AccommodationComponent implements OnInit {
       this.freeRoomsInDate = [];
       this.roomService.getAvailableRoomsWithAccomodationIdAndDate(this.accommodationID, this.searchStartDate, this.searchEndDate, this.persons).toPromise().then(data => {
         if (data !== undefined) {
-          this.freeRoomsInDate = data;
+          this.freeRoomsInDate = data.filter(room => room.status !== "inactive");
           this.notFreeRoomsInDate = rooms.filter(room => {
             return !this.freeRoomsInDate.some(freeRoom => freeRoom.id === room.id);
           });

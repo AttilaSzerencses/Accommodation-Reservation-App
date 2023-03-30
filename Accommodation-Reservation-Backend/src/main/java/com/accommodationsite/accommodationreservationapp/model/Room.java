@@ -18,6 +18,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    private String status;
     private String roomImage;
     private int pricePerNight;
     private int size;

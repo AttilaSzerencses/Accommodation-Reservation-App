@@ -93,18 +93,29 @@ export class AccommodationManagementComponent implements OnInit {
 
   changeAccommodationStatus(accommodation: Accommodation){
     let updateAccommodation = accommodation;
-    console.log(accommodation.status);
-    
     if(accommodation.status === "active"){
       updateAccommodation.status = "inactive"
       this.accommodationService.updateAccommodation(updateAccommodation).toPromise().then(data => {
-        console.log(updateAccommodation.status + "ITT INAKTÍV");
         this.statusChangeAlert();
       });
     } else {
       updateAccommodation.status = "active"
       this.accommodationService.updateAccommodation(updateAccommodation).subscribe(data => {
-        console.log(updateAccommodation.status  + "ITT AKTÍV");
+        this.statusChangeAlert();
+      });
+    }
+  }
+
+  changeRoomStatus(room: Room){
+    let updateRoom = room;
+    if(room.status === "active"){
+      updateRoom.status = "inactive"
+      this.roomService.updateRoom(updateRoom).toPromise().then(data => {
+        this.statusChangeAlert();
+      });
+    } else {
+      updateRoom.status = "active"
+      this.roomService.updateRoom(updateRoom).subscribe(data => {
         this.statusChangeAlert();
       });
     }

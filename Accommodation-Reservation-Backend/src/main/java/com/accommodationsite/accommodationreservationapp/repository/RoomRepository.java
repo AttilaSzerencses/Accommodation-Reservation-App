@@ -15,9 +15,9 @@ import java.util.Optional;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer>{
     Optional<List<Room>> findByAccommodationId(int id);
-    @Query("SELECT r FROM Room r WHERE r.accommodation.id = :hotelId AND r.bedSize >= :persons AND NOT EXISTS (SELECT 1 FROM Reservation res WHERE res.room.id = r.id AND (res.checkinDate <= :endDate AND res.checkoutDate >= :startDate))")
+    @Query("SELECT r FROM Room r WHERE r.accommodation.id = :hotelId AND r.bedSize >= :persons AND r.status = 'active' AND NOT EXISTS (SELECT 1 FROM Reservation res WHERE res.room.id = r.id AND (res.checkinDate <= :endDate AND res.checkoutDate >= :startDate))")
     List<Room> findAvailableRoomsByDateRangeAndHotelId(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("hotelId") int hotelId, @Param("persons") int persons);
 
-    @Query("SELECT r FROM Room r WHERE r.accommodation.id = :hotelId AND r.bedSize >= :numberOfPersons")
+    @Query("SELECT r FROM Room r WHERE r.accommodation.id = :hotelId AND r.bedSize >= :numberOfPersons AND r.status = 'active'")
     List<Room> findAvailableRoomsByRoomCapacityAndHotelId(@Param("hotelId") int hotelId, @Param("numberOfPersons") int numberOfPersons);
 }

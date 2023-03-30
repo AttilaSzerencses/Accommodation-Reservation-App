@@ -31,6 +31,7 @@ public class RoomController {
             Room room = new ObjectMapper().readValue(roomJson, Room.class);
             String pathForRoomImage = accommodationService.saveImageForAccommodationAndReturnPath(image);
             room.setRoomImage(pathForRoomImage);
+            room.setStatus("active");
             roomService.addRoom(room);
             return new ResponseEntity<String>("Successful creation", HttpStatus.NO_CONTENT);
         } catch (Exception e){
