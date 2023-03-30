@@ -17,6 +17,9 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private int price;
+    @Column(columnDefinition = "DATE")
+    private LocalDate reservationDate;
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;

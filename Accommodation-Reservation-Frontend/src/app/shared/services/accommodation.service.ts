@@ -27,6 +27,10 @@ export class AccommodationService {
     return this.http.get<Accommodation[]>(`${this.apiServerUrl}/request/accommodation/findAllByPersonId/${personId}`);
   }
 
+  public getAllAccommodationByStatus(status: string): Observable<Accommodation[]> {
+    return this.http.get<Accommodation[]>(`${this.apiServerUrl}/request/accommodation/findAllByStatus/${status}`);
+  }
+
   public getAccommodationByName(name: string): Observable<Accommodation> {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByName/${name}`);
   }

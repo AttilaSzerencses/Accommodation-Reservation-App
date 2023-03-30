@@ -13,5 +13,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, In
     Optional<Accommodation> findByCity(String city);
     Optional<Accommodation> findByName(String name);
     Optional<List<Accommodation>> findAllByPersonId(int id);
+    Optional<List<Accommodation>> findAllByStatus(String status);
     Optional<Accommodation> deleteByName(String name);
 }

@@ -109,7 +109,13 @@ export class ReservationComponent implements OnInit {
   }
 
   public sendReservation() {
+    let calculatedPrice = 0;
+    if(this.room.pricePerNight !== undefined){
+      let days = this.calculateDays(this.startDate, this.endDate);
+      calculatedPrice = (this.tax*days)+(this.room.pricePerNight*days);
+    }
     let booking: Reservation = {
+      price: calculatedPrice,
       person: this.user,
       room: this.room,
       checkinDate: this.startDate,

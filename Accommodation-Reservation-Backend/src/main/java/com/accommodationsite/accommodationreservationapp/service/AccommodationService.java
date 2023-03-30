@@ -51,6 +51,10 @@ public class AccommodationService {
         return accommodationRepository.findAllByPersonId(userId).orElse(null);
     }
 
+    public List<Accommodation> findAllAccommodationByStatus(String status){
+        return accommodationRepository.findAllByStatus(status).orElse(null);
+    }
+
     public Accommodation findAccommodationById(int id){
         return accommodationRepository.findById(id).orElse(null);
     }
