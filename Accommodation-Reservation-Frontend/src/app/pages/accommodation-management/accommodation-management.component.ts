@@ -42,6 +42,10 @@ export class AccommodationManagementComponent implements OnInit {
     this.router.navigate(['/createAccommodation']);
   }
 
+  public redirectToCreateRoom(accommodation: Accommodation) {
+    window.open(`http://localhost:4200/createRoom?accommodation=${accommodation.id}`, '_self');
+  }
+
   public updateAccommodation(accommodation: Accommodation) {
     this.router.navigate(['/createAccommodation']);
   }
