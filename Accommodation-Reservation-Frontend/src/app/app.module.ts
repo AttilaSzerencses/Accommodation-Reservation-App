@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -37,6 +38,7 @@ import { TokenInterceptorService } from './shared/services/token-interceptor.ser
 import { CreateAccommodationComponent } from './pages/create-accommodation/create-accommodation.component';
 import { CreateRoomComponent } from './pages/create-room/create-room.component';
 import { AccommodationManagementComponent } from './pages/accommodation-management/accommodation-management.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { AccommodationManagementComponent } from './pages/accommodation-manageme
     ReservationComponent,
     CreateAccommodationComponent,
     CreateRoomComponent,
-    AccommodationManagementComponent
+    AccommodationManagementComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { AccommodationManagementComponent } from './pages/accommodation-manageme
     MatListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}, DatePipe],
   bootstrap: [AppComponent]
