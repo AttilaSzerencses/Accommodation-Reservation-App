@@ -23,7 +23,7 @@ export class ReservationComponent implements OnInit {
   user: Person;
   roomId: number;
   room: Room;
-  persons: Number;
+  persons: number;
   startDate: string;
   endDate: string;
   reservedDays: number;
@@ -69,7 +69,7 @@ export class ReservationComponent implements OnInit {
     this.roomService.getRoomById(id).toPromise().then(data => {
       if (data !== undefined) {
         this.room = data;
-        this.taxForReservation = this.tax * this.reservedDays;
+        this.taxForReservation = this.tax * this.reservedDays * this.persons;
         if (this.room.pricePerNight) {
           this.priceForReservation = this.room.pricePerNight * this.reservedDays;
         }

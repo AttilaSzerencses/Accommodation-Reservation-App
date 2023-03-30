@@ -20,6 +20,7 @@ export class AccommodationComponent implements OnInit {
   persons: number = 1;
   searchStartDate: string;
   searchEndDate: string;
+  searchDays: number;
   accommodation: Accommodation;
   amenities: Array<Amenity>;
   rooms: Array<Room>;
@@ -63,6 +64,14 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
+  calculateDays(startDate: string, endDate: string) {
+    let checkInDate = new Date(startDate);
+    let checkOutDate = new Date(endDate);
+
+    let days = Math.floor((checkOutDate.getTime() - checkInDate.getTime()) / 1000 / 60 / 60 / 24);
+    return days;
+  }
+
   public getRoomsById(accommodationId: number) {
     if (this.accommodationID == 0) {
       this.router.navigate(['/main']);
@@ -81,6 +90,7 @@ export class AccommodationComponent implements OnInit {
 
   public setFreeRooms(rooms: Array<Room>) {
     if (this.searchStartDate !== "" && this.searchEndDate !== "" && this.searchStartDate !== "1970-01-01" && this.searchEndDate !== "1970-01-01") {
+      this.searchDays = this.calculateDays(this.searchStartDate, this.searchEndDate);
       this.freeRoomsInDate = [];
       this.roomService.getAvailableRoomsWithAccomodationIdAndDate(this.accommodationID, this.searchStartDate, this.searchEndDate, this.persons).toPromise().then(data => {
         if (data !== undefined) {
@@ -112,6 +122,13 @@ export class AccommodationComponent implements OnInit {
 
   decrementAdults() {
     if (this.persons > 1) this.persons--;
+  }
+
+  calculateRoomPrice(room: Room){
+    if(room.pricePerNight !== undefined){
+      return this.searchDays*room.pricePerNight
+    }
+    return "Price could not be calculated"
   }
 
   refresh() {

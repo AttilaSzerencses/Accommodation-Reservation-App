@@ -100,14 +100,25 @@
           {{room.description}}
         </p>
         <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-          Capacity: {{ room.bedSize }} person
+          Capacity: {{ room.bedSize }} people
         </p>
         <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
           Room size: {{ room.size }} m2
         </p>
         <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-          Search datas: {{ searchStartDate }} - {{ searchEndDate }}, person: {{ persons }}
+          Room price per night: {{ room.pricePerNight }} ft
         </p>
+        <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+          Search date: {{ searchStartDate }} - {{ searchEndDate }}, People: {{ persons }}
+        </p>
+        <div *ngIf="this.searchStartDate !== '' && this.searchEndDate !== ''  && this.searchStartDate !== '1970-01-01' && this.searchEndDate !== '1970-01-01'">
+          <hr>
+          <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+            Price for the searched date: {{calculateRoomPrice(room)}} ft (+Tourist tax)
+          </p>
+        </div>
+        
+
       </div>
       <button
         class="bg-gray-500 w-1/5 text-white active:bg-gray-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -133,7 +144,10 @@
         Room size: {{ room.size }} m2
       </p>
       <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-        Search datas: {{ searchStartDate }} - {{ searchEndDate }}, person: {{ persons }}
+        Room price per night: {{ room.pricePerNight }} ft
+      </p>
+      <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+        Search date: {{ searchStartDate }} - {{ searchEndDate }}, person: {{ persons }}
       </p>
     </div>
     <button
