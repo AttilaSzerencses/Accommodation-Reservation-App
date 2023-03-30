@@ -38,6 +38,26 @@ export class AccommodationManagementComponent implements OnInit {
     });
   }
 
+  public redirectToCreateAccommodation() {
+    this.router.navigate(['/createAccommodation']);
+  }
+
+  public updateAccommodation(accommodation: Accommodation) {
+    this.router.navigate(['/createAccommodation']);
+  }
+
+  public deleteAccommodation(accommodation: Accommodation) {
+
+  }
+
+  public updateRoom(accommodation: Accommodation, room: Room){
+
+  }
+
+  public deleteRoom(accommodation: Accommodation, room: Room){
+
+  }
+
   public IsIdMatch(accommoditon: Accommodation, room: Room) {
     console.log(this.rooms.length);
     
