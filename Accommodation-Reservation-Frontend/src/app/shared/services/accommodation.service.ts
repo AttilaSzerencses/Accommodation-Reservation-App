@@ -44,11 +44,11 @@ export class AccommodationService {
     return this.http.delete<void>(`${this.apiServerUrl}/request/accommodation/deleteById/${id}`);
   }
 
-  public updateAccommodation(accommodation: Accommodation, image: File, secondImage: File, thirdImage: File): Observable<string> {
+  public updateAccommodation(accommodation: Accommodation, image?: File, secondImage?: File, thirdImage?: File): Observable<string> {
     const formData = new FormData();
-    formData.append('image', image);
-    formData.append('secondImage', secondImage);
-    formData.append("thirdImage", thirdImage)
+    if(image !== undefined) formData.append('image', image);
+    if(secondImage !== undefined) formData.append('secondImage', secondImage);
+    if(thirdImage !== undefined) formData.append("thirdImage", thirdImage)
     formData.append('accommodation', JSON.stringify(accommodation));
     return this.http.put<string>(`${this.apiServerUrl}/request/accommodation/update`, formData);
   }

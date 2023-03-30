@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
   getAccommodations() {
     const allAccomodations = this.accommodationService.getAccommodations().subscribe((data: Accommodation[]) => {
       allAccomodations.unsubscribe();
-      const activeAccommodations = data.filter(accommodation => accommodation.status !== 'inactive');
+      const activeAccommodations = data.filter(accommodation => accommodation.status !== 'inactive' && accommodation.status !== 'waiting');
       this.accommodations = activeAccommodations.slice(0, 8);
       this.savedAccommodations = data;
     })
@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
     let filteredAccommodationList: Array<Accommodation> = [];
     let filteredAccommodationListWithDate: Array<Accommodation> = [];
     for (let accommodation of this.savedAccommodations) {
-      if(accommodation.status === "inactive") continue
+      if(accommodation.status === "inactive" || accommodation.status === "waiting" ) continue
       if (accommodation.name.toLowerCase().includes(this.searchText.toLowerCase()) || accommodation.city.toLowerCase().includes(this.searchText.toLowerCase())) {
         if (accommodation.id == undefined) continue;
         let freeRoomsByCapacityForTheCurrentAccommodation = await this.roomService.getAvailableRoomsByRoomCapacityAndHotelId(accommodation.id, this.adults).toPromise();
@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
       let convertedStartDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
       let convertedEndDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd")
       for (let accommodation of filteredAccommodationList) {
-        if (accommodation.id == undefined || accommodation.status == "inactive") continue;
+        if (accommodation.id == undefined || accommodation.status == "inactive" || accommodation.status == "waiting") continue;
         if (convertedStartDate === null || convertedEndDate === null) continue;
         let freeRoomsForTheCurrentAccommodation = await this.roomService.getAvailableRoomsWithAccomodationIdAndDate(accommodation.id, convertedStartDate, convertedEndDate, this.adults).toPromise();
         if (freeRoomsForTheCurrentAccommodation && freeRoomsForTheCurrentAccommodation.length !== 0) {

@@ -19,6 +19,7 @@ export class AccommodationManagementComponent implements OnInit {
   userId: number = Number(localStorage.getItem("userId"))
   accommodations: Accommodation[]
   rooms: Room[]
+  toggleStatus: boolean = false;
   constructor(private router: Router, private accommodationService: AccommodationService, private roomService: RoomService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -90,6 +91,25 @@ export class AccommodationManagementComponent implements OnInit {
     });
   }
 
+  changeAccommodationStatus(accommodation: Accommodation){
+    let updateAccommodation = accommodation;
+    console.log(accommodation.status);
+    
+    if(accommodation.status === "active"){
+      updateAccommodation.status = "inactive"
+      this.accommodationService.updateAccommodation(updateAccommodation).toPromise().then(data => {
+        console.log(updateAccommodation.status + "ITT INAKTÍV");
+        this.statusChangeAlert();
+      });
+    } else {
+      updateAccommodation.status = "active"
+      this.accommodationService.updateAccommodation(updateAccommodation).subscribe(data => {
+        console.log(updateAccommodation.status  + "ITT AKTÍV");
+        this.statusChangeAlert();
+      });
+    }
+  }
+
   public errorAlert() {
     Swal.fire({
       icon: 'error',
@@ -107,6 +127,17 @@ export class AccommodationManagementComponent implements OnInit {
       timer: 1500
     })
     window.location.reload();
+  }
+
+  public statusChangeAlert() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Successful status change!',
+      text: "You have successfully change the status!",
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.router.navigate(['/accommodationManagement']);
   }
 
 }

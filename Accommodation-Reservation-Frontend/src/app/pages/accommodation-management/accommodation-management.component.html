@@ -28,6 +28,7 @@
             <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
                 Status: {{ accommodation.status }}
             </p>
+            <p *ngIf="accommodation.status === 'waiting'" class="italic">You have to wait until the admin approves your request!</p>
         </div>
         <div class="flex items-end m-4">
             <div class="flex flex-col ml-auto">
@@ -47,6 +48,7 @@
                         <path d="M14 11V17" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </span>
+                <mat-slide-toggle [disabled]="accommodation.status === 'waiting'" (change)="changeAccommodationStatus(accommodation)" [checked]="accommodation.status === 'active'"></mat-slide-toggle>
             </div>
         </div>
     </div>
