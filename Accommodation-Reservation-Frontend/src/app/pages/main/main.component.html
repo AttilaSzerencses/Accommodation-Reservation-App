@@ -6,7 +6,7 @@
     </div>
     <div class="mx-auto w-3/4 pt-5 pb-5 flex flex-col sm:flex-row justify-center items-center">
         <input class="shadow-xl w-3/5 h-12 rounded mb-3 lg:mb-0 lg:mr-3 px-5" type="text" name="search" autocomplete="off" [(ngModel)]="searchText"
-            placeholder="Start searching for a City or Hotel name">
+            placeholder="Start searching for a City or Hotel name" maxlength="80">
         <div class="bg-white rounded-md flex items-center mb-3 lg:mb-0 lg:mr-3">
             <button class="bg-gray-300 text-gray-800 rounded-l-md px-3 py-2" (click)="decrementAdults()">-</button>
             <div class="text-center px-3">
@@ -18,8 +18,8 @@
         <mat-form-field appearance="fill" class="w-3/5 absolute top-2">
             <mat-label>Check-in -- Check-out</mat-label>
             <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                <input matStartDate formControlName="start" placeholder="Start date">
-                <input matEndDate formControlName="end" placeholder="End date">
+                <input matStartDate formControlName="start" placeholder="Start date" maxlength="15">
+                <input matEndDate formControlName="end" placeholder="End date" maxlength="15">
             </mat-date-range-input>
             <mat-datepicker-toggle matIconSuffix [for]="picker"
                 class="absolute bottom-1 right-0"></mat-datepicker-toggle>
