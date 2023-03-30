@@ -11,23 +11,23 @@ export class AccommodationService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
 
-  public getAccommodations(): Observable<Accommodation[]>{
+  public getAccommodations(): Observable<Accommodation[]> {
     return this.http.get<Accommodation[]>(`${this.apiServerUrl}/request/accommodation/all`);
   }
 
-  public getAccommodationById(id: number): Observable<Accommodation>{
+  public getAccommodationById(id: number): Observable<Accommodation> {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findById/${id}`);
   }
 
-  public getAccommodationByCity(city: string): Observable<Accommodation>{
+  public getAccommodationByCity(city: string): Observable<Accommodation> {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByCity/${city}`);
   }
 
-  public getAllAccommodationByPersonId(personId: number): Observable<Accommodation[]>{
+  public getAllAccommodationByPersonId(personId: number): Observable<Accommodation[]> {
     return this.http.get<Accommodation[]>(`${this.apiServerUrl}/request/accommodation/findAllByPersonId/${personId}`);
   }
 
-  public getAccommodationByName(name: string): Observable<Accommodation>{
+  public getAccommodationByName(name: string): Observable<Accommodation> {
     return this.http.get<Accommodation>(`${this.apiServerUrl}/request/accommodation/findByName/${name}`);
   }
 
@@ -44,8 +44,13 @@ export class AccommodationService {
     return this.http.delete<void>(`${this.apiServerUrl}/request/accommodation/deleteById/${id}`);
   }
 
-  public updateAccommodation(accommodation: Accommodation): Observable<Accommodation> {
-    return this.http.put<Accommodation>(`${this.apiServerUrl}/request/accommodation/update`, accommodation);
+  public updateAccommodation(accommodation: Accommodation, image: File, secondImage: File, thirdImage: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('secondImage', secondImage);
+    formData.append("thirdImage", thirdImage)
+    formData.append('accommodation', JSON.stringify(accommodation));
+    return this.http.put<string>(`${this.apiServerUrl}/request/accommodation/update`, formData);
   }
 
 }

@@ -35,7 +35,7 @@ public class AccommodationController {
             accommodation.setSecondImage(pathForSecondPicture);
             accommodation.setThirdImage(pathForThirdPicture);
             accommodationService.addAccommodation(accommodation);
-            return new ResponseEntity<String>("Succesfull creation", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Successful creation", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error", HttpStatus.BAD_REQUEST);
         }
@@ -76,9 +76,26 @@ public class AccommodationController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Accommodation> updateAccommodation(@RequestBody Accommodation accommodation) {
-        Accommodation updateAccommodation = accommodationService.updateAccommodation(accommodation);
-        return new ResponseEntity<>(updateAccommodation, HttpStatus.OK);
+    public ResponseEntity<String> updateAccommodation(@RequestParam(value = "image", required = false) MultipartFile image, @RequestParam(value = "secondImage", required = false) MultipartFile secondImage, @RequestParam(value = "thirdImage", required = false) MultipartFile thirdImage, @RequestParam("accommodation") String accommodationJson) {
+        try{
+            Accommodation accommodation = new ObjectMapper().readValue(accommodationJson, Accommodation.class);
+            if (image != null){
+                String pathForMainPagePicture = accommodationService.saveImageForAccommodationAndReturnPath(image);
+                accommodation.setMainPagePicture(pathForMainPagePicture);
+            }
+            if (secondImage != null) {
+                String pathForSecondPicture = accommodationService.saveImageForAccommodationAndReturnPath(secondImage);
+                accommodation.setSecondImage(pathForSecondPicture);
+            }
+            if (thirdImage != null) {
+                String pathForThirdPicture = accommodationService.saveImageForAccommodationAndReturnPath(thirdImage);
+                accommodation.setThirdImage(pathForThirdPicture);
+            }
+            accommodationService.updateAccommodation(accommodation);
+            return new ResponseEntity<String>("Successful update!", HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<String>("Error", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/deleteById/{id}")

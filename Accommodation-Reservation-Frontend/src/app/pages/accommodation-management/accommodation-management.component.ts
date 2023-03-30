@@ -47,7 +47,7 @@ export class AccommodationManagementComponent implements OnInit {
   }
 
   public updateAccommodation(accommodation: Accommodation) {
-    this.router.navigate(['/createAccommodation']);
+    window.open(`http://localhost:4200/createAccommodation?accommodation=${accommodation.id}`, '_self');
   }
 
   public deleteAccommodation(accommodation: Accommodation) {

@@ -141,7 +141,7 @@ export class CreateRoomComponent implements OnInit {
   public succesAlert(){
     Swal.fire({
       icon: 'success',
-      title: 'Successfull creation!',
+      title: 'Successfull '+this.createOrUpdate+"!",
       showConfirmButton: false,
       timer: 1500
     })
