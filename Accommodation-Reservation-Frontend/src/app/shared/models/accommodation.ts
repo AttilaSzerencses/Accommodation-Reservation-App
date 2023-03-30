@@ -6,6 +6,7 @@ import { Room } from "./room";
 export interface Accommodation {
     id?: number;
     name: string;
+    status?: string;
     phoneNumber?: string;
     mainPagePicture?: string;
     secondImage?: string;

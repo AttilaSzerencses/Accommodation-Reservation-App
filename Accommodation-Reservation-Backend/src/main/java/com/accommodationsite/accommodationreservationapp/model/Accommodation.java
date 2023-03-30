@@ -20,6 +20,7 @@ public class Accommodation implements Serializable {
     private int id;
     @Column(nullable = false)
     private String name;
+    private String status;
     private String mainPagePicture;
     private String secondImage;
     private String thirdImage;

@@ -57,6 +57,7 @@ export class AccommodationComponent implements OnInit {
       this.router.navigate(['/main']);
     }
     this.accommodationService.getAccommodationById(accommodationID).subscribe((data: Accommodation) => {
+      if(data.status === "inactive") this.router.navigate(['/main']);
       this.accommodation = data;
       if (data.amenities !== undefined && data.amenities !== null) {
         this.amenities = data.amenities;

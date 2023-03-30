@@ -34,6 +34,7 @@ public class AccommodationController {
             accommodation.setMainPagePicture(pathForMainPagePicture);
             accommodation.setSecondImage(pathForSecondPicture);
             accommodation.setThirdImage(pathForThirdPicture);
+            accommodation.setStatus("inactive");
             accommodationService.addAccommodation(accommodation);
             return new ResponseEntity<String>("Successful creation", HttpStatus.NO_CONTENT);
         } catch (Exception e) {
