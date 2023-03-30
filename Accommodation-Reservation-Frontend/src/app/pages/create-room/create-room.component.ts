@@ -130,6 +130,10 @@ export class CreateRoomComponent implements OnInit {
     }
   }
 
+  redirectBackToThePreviousPage() {
+    window.history.back();
+  }
+
   public errorAlert(){
     Swal.fire({
       icon: 'error',

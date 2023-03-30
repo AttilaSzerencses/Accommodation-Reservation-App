@@ -224,6 +224,10 @@ export class CreateAccommodationComponent implements OnInit {
     }
   }
 
+  redirectBackToThePreviousPage() {
+    window.history.back();
+  }
+
   public errorAlert() {
     Swal.fire({
       icon: 'error',

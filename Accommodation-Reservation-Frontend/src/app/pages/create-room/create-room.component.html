@@ -7,11 +7,6 @@
                     <h1 class="text-blueGray-700 text-xl font-bold">
                         {{this.createOrUpdate}} Your Hotel's room
                     </h1>
-                    <button
-                        class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                        type="button" (click)="saveOrUpdateRoom()">
-                        {{this.createOrUpdate}}
-                    </button>
                 </div>
             </div>
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -69,15 +64,17 @@
                                     for="mainpage_picture">Upload room image</label>
                                 <input required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    id="mainpage_picture" type="file" formControlName="image" (change)="onImageSelected($event)">
+                                    id="mainpage_picture" type="file" formControlName="image"
+                                    (change)="onImageSelected($event)">
                             </div>
                             <div *ngIf="this.roomId !== 0" class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     for="mainpage_picture">Upload room image</label>
-                                    <p class="italic">Only upload a new image if you want to modify the old one!</p>
+                                <p class="italic">Only upload a new image if you want to modify the old one!</p>
                                 <input
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    id="mainpage_picture" type="file" formControlName="image" (change)="onImageSelected($event)">
+                                    id="mainpage_picture" type="file" formControlName="image"
+                                    (change)="onImageSelected($event)">
                             </div>
                         </div>
                     </div>
@@ -94,11 +91,25 @@
                                 </label>
                                 <textarea type="text" formControlName="description" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    maxlength="150" rows="4"  placeholder="Enter your description.The limit is 150 charachter!"></textarea>
+                                    maxlength="150" rows="4"
+                                    placeholder="Enter your description.The limit is 150 charachter!"></textarea>
                             </div>
                         </div>
                     </div>
                 </form>
+                <hr class="mt-6 border-b-1 border-blueGray-300">
+                <div class="flex justify-center mt-5">
+                    <button
+                    class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button" (click)="redirectBackToThePreviousPage()">
+                    Cancel
+                </button>
+                <button
+                    class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button" (click)="saveOrUpdateRoom()">
+                    {{this.createOrUpdate}}
+                </button>
+                </div>
             </div>
         </div>
     </div>
