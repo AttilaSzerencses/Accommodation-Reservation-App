@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Accommodation } from 'src/app/shared/models/accommodation';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
 import { RoomService } from 'src/app/shared/services/room.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -36,6 +37,25 @@ export class MainComponent implements OnInit {
       this.accommodations = activeAccommodations.slice(0, 8);
       this.savedAccommodations = data;
     })
+  }
+
+  checkDateAndGetFilteredAccommodations() {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const futureDate = new Date();
+    futureDate.setFullYear(currentDate.getFullYear() + 1, currentDate.getMonth() + 6, 0);
+    let searchStartDate = this.range.get("start")?.value;
+    let searchEndDate = this.range.get("end")?.value;
+    if(searchStartDate !== null && searchEndDate !== null ){
+      if(searchStartDate < currentDate || searchEndDate < currentDate || searchStartDate > futureDate || searchEndDate > futureDate) {
+        this.errorAlertForIncorrectDate();
+      } else{
+        this.getFilteredAccommodations();
+      }
+    } else {
+      this.getFilteredAccommodations();
+    }
+    
   }
 
   async getFilteredAccommodations() {
@@ -85,5 +105,14 @@ export class MainComponent implements OnInit {
   decrementAdults() {
     if (this.adults > 1) this.adults--;
   }
+
+  public errorAlertForIncorrectDate() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Incorrect Date!',
+      text: 'You cant search for the date in the past or in the future!',
+    })
+  }
+
 
 }

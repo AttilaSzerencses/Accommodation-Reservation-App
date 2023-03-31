@@ -57,7 +57,7 @@ export class AccommodationComponent implements OnInit {
       this.router.navigate(['/main']);
     }
     this.accommodationService.getAccommodationById(accommodationID).subscribe((data: Accommodation) => {
-      if(data.status === "inactive" || data.status === "waiting") this.router.navigate(['/main']);
+      if (data.status === "inactive" || data.status === "waiting") this.router.navigate(['/main']);
       this.accommodation = data;
       if (data.amenities !== undefined && data.amenities !== null) {
         this.amenities = data.amenities;
@@ -125,14 +125,28 @@ export class AccommodationComponent implements OnInit {
     if (this.persons > 1) this.persons--;
   }
 
-  calculateRoomPrice(room: Room){
-    if(room.pricePerNight !== undefined){
-      return this.searchDays*room.pricePerNight
+  calculateRoomPrice(room: Room) {
+    if (room.pricePerNight !== undefined) {
+      return this.searchDays * room.pricePerNight
     }
     return "Price could not be calculated"
   }
 
   refresh() {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const futureDate = new Date();
+    futureDate.setFullYear(currentDate.getFullYear() + 1, currentDate.getMonth() + 6, 0);
+    let searchStartDate = this.range.get("start")?.value;
+    let searchEndDate = this.range.get("end")?.value;
+    if (searchStartDate < currentDate || searchEndDate < currentDate || searchStartDate > futureDate || searchEndDate > futureDate) {
+      this.errorAlertForIncorrectDate();
+    } else {
+      this.reopenWithNewDate();
+    }
+  }
+
+  reopenWithNewDate() {
     this.searchStartDate = this.datePipe.transform(new Date(this.range.get("start")?.value), "yyyy-MM-dd") || "";
     this.searchEndDate = this.datePipe.transform(new Date(this.range.get("end")?.value), "yyyy-MM-dd") || "";
     window.open(`http://localhost:4200/accommodation?accommodation=${this.accommodationID}&persons=${this.persons}&startDate=${this.searchStartDate}&endDate=${this.searchEndDate}`, '_self');
@@ -151,6 +165,14 @@ export class AccommodationComponent implements OnInit {
       icon: 'error',
       title: 'You cant book the room!',
       text: 'You have to set the reservation date for booking the room!',
+    })
+  }
+
+  public errorAlertForIncorrectDate() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Incorrect Date!',
+      text: 'You cant refresh for empty date or date in the past or date in the future!',
     })
   }
 
