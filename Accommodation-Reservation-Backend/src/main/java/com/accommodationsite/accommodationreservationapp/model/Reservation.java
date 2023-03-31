@@ -30,5 +30,6 @@ public class Reservation {
     private LocalDate checkinDate;
     @Column(columnDefinition = "DATE")
     private LocalDate checkoutDate;
+    private String qrCodeId;
 }
 

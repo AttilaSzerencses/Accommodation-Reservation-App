@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/request/reservation")
@@ -36,7 +36,9 @@ public class ReservationController {
     @PostMapping({"/add"})
     public void addReservation(@RequestBody Reservation reservation) {
         LocalDate currentDate = LocalDate.now();
+        String generatedQrCodeId = UUID.randomUUID().toString();
         reservation.setReservationDate(currentDate);
+        reservation.setQrCodeId(generatedQrCodeId);
         reservationService.addReservation(reservation);
         try {
             String email = reservation.getPerson().getEmail();

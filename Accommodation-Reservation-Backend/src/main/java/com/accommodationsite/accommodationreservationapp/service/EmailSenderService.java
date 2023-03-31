@@ -4,6 +4,7 @@ package com.accommodationsite.accommodationreservationapp.service;
 import com.accommodationsite.accommodationreservationapp.model.Accommodation;
 import com.accommodationsite.accommodationreservationapp.model.Reservation;
 import com.accommodationsite.accommodationreservationapp.model.Room;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,8 +16,11 @@ import org.springframework.util.StreamUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 
 @Service
@@ -58,6 +62,11 @@ public class EmailSenderService {
     public void sendReservationEmail(String toEmail, String subject, Room room, Accommodation accommodation, Reservation reservation, String firstName) throws MessagingException, IOException, MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        ByteArrayOutputStream outputStream = QRCode.from(reservation.getQrCodeId()).to(ImageType.PNG).stream();
+        byte[] qrCodeBytes = outputStream.toByteArray();
+        helper.addAttachment("qrcode.png", new ByteArrayResource(qrCodeBytes));
+
         helper.setFrom("accommodationnoreply@gmail.com");
         helper.setTo(toEmail);
         helper.setSubject(subject);
@@ -73,7 +82,9 @@ public class EmailSenderService {
         html = html.replace("${bedSize}", String.valueOf(room.getBedSize()));
         html = html.replace("${price}", String.valueOf(reservation.getPrice()));
         html = html.replace("${accommodationDescription}", accommodation.getCheckInDescriptionForEmail());
+        html = html.replace("${reservationQrCodeId}", reservation.getQrCodeId());
         helper.setText(html, true);
+        helper.addInline("qrcode.png", new ByteArrayResource(qrCodeBytes), "image/png");
 
         mailSender.send(message);
         System.out.println("Reactivation Mail sent successfully!");
