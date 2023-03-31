@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Confirmation</title>
+    <style type="text/css">
+        /* Base styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F3F3;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .container {
+            margin: 0 auto;
+            width: 80%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #007C59;
+            padding: 30px;
+            text-align: center;
+            color: #ffffff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .header h1 {
+            margin: 0;
+            font-weight: bold;
+            font-size: 28px;
+            line-height: 34px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .footer {
+            background-color: #007C59;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 14px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .footer a {
+            text-decoration: underline;
+        }
+
+        /* Reservation details styles */
+        .reservation-details {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .reservation-details img {
+            max-width: 100%;
+        }
+        .reservation-details h2 {
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #007C59;
+        }
+        .reservation-details p {
+            margin: 0 0 10px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #444444;
+        }
+        .reservation-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #444444;
+            text-align: left;
+        }
+        .reservation-details ul li {
+            margin-bottom: 10px;
+        }
+        .reservation-details ul li strong {
+            display: inline-block;
+            width: 140px;
+            font-weight: bold;
+        }
+        .reservation-details .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 30px;
+            background-color: #007C59;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Reservation Confirmation</h1>
+        <p>Dear ${firstName},</p>
+        <p>Thank you for reserving a room with us! We're excited to welcome you to our accommodation.</p>
+    </div>
+    <div class="content">
+        <div class="reservation-details">
+            <h2>${accommodationName}</h2>
+            <h2>${roomName}</h2>
+            <img src="${roomImage}" alt="Room image">
+            <p>${roomDescription}</p>
+            <ul>
+                <li><strong>Check-in:</strong> ${checkInDate}</li>
+                <li><strong>Check-out:</strong> ${checkOutDate}</li>
+                <li><strong>Reservation Date:</strong> ${reservationDate}</li>
+                <li><strong>Room Size:</strong> ${roomSize} people</li>
+                <li><strong>Bed Size: for </strong> people/bed ${bedSize}</li>
+                <li><strong>Price:</strong> ${price} Ft</li>
+            </ul>
+            <h2>Help from the accommodation for the check in:</h2>
+            <p>${accommodationDescription}</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Thank you for choosing Apollo. For more information, please visit our <a href="http://localhost:4200">website</a>.</p>
+    </div>
+
+</div>
+</body>
+</html>

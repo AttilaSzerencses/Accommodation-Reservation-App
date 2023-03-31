@@ -1,7 +1,12 @@
 package com.accommodationsite.accommodationreservationapp.controller;
 
+import com.accommodationsite.accommodationreservationapp.model.Accommodation;
 import com.accommodationsite.accommodationreservationapp.model.Reservation;
+import com.accommodationsite.accommodationreservationapp.model.Room;
+import com.accommodationsite.accommodationreservationapp.service.EmailSenderService;
 import com.accommodationsite.accommodationreservationapp.service.ReservationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +22,11 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+    private Logger logger = LoggerFactory.getLogger(PersonController.class);
+
     @GetMapping("/all")
     public ResponseEntity<List<Reservation>> getAllReservations() {
         List<Reservation> reservations = reservationService.findAllReservations();
@@ -28,6 +38,15 @@ public class ReservationController {
         LocalDate currentDate = LocalDate.now();
         reservation.setReservationDate(currentDate);
         reservationService.addReservation(reservation);
+        try {
+            String email = reservation.getPerson().getEmail();
+            Room room = reservation.getRoom();
+            Accommodation accommodation = reservation.getRoom().getAccommodation();
+            String firstName = reservation.getPerson().getFirstName();
+            emailSenderService.sendReservationEmail(email, "Account verification", room, accommodation, reservation, firstName);
+        }catch( Exception e ){
+            logger.info("Error Sending Email: " + e.getMessage());
+        }
     }
 
     @GetMapping("/findByUserId/{userId}")

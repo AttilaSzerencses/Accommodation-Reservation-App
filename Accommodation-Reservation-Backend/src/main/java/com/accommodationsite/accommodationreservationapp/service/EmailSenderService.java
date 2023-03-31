@@ -1,6 +1,9 @@
 package com.accommodationsite.accommodationreservationapp.service;
 
 
+import com.accommodationsite.accommodationreservationapp.model.Accommodation;
+import com.accommodationsite.accommodationreservationapp.model.Reservation;
+import com.accommodationsite.accommodationreservationapp.model.Room;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mail.SimpleMailMessage;
@@ -40,18 +43,38 @@ public class EmailSenderService {
     public void sendReactivationEmail(String toEmail, String subject, String link) throws MessagingException, IOException, MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
         helper.setFrom("accommodationnoreply@gmail.com");
         helper.setTo(toEmail);
         helper.setSubject(subject);
-
-        // Load the HTML template from a file
         String html = loadHtmlTemplate("emailConfirmationTemplate.html");
-
-        // Replace the link placeholder with the actual link
         html = html.replace("${link}", link);
+        helper.setText(html, true);
 
-        helper.setText(html, true); // true indicates that it is HTML content
+        mailSender.send(message);
+        System.out.println("Reactivation Mail sent successfully!");
+    }
+
+    @Async
+    public void sendReservationEmail(String toEmail, String subject, Room room, Accommodation accommodation, Reservation reservation, String firstName) throws MessagingException, IOException, MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("accommodationnoreply@gmail.com");
+        helper.setTo(toEmail);
+        helper.setSubject(subject);
+        String html = loadHtmlTemplate("reservationEmailTemplate.html");
+        html = html.replace("${firstName}", firstName);
+        html = html.replace("${accommodationName}", accommodation.getName());
+        html = html.replace("${roomName}", room.getName());
+        html = html.replace("${roomImage}", "MAJD IDE JÖN AZ IMAGE"); //TODO IT's not going to work
+        html = html.replace("${roomDescription}", room.getDescription());
+        html = html.replace("${checkInDate}", reservation.getCheckinDate().toString());
+        html = html.replace("${checkOutDate}", reservation.getCheckoutDate().toString());
+        html = html.replace("${reservationDate}", reservation.getReservationDate().toString());
+        html = html.replace("${roomSize}", String.valueOf(room.getSize()));
+        html = html.replace("${bedSize}", String.valueOf(room.getBedSize()));
+        html = html.replace("${price}", String.valueOf(reservation.getPrice()));
+        html = html.replace("${accommodationDescription}", "HERE I HAVE TO ADD THE ACCOMMODATION DESCRIPTION ABOUT CHECKING IN!");
+        helper.setText(html, true);
 
         mailSender.send(message);
         System.out.println("Reactivation Mail sent successfully!");
