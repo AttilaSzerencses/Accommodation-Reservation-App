@@ -46,7 +46,7 @@ public class EmailSenderService {
         helper.setSubject(subject);
 
         // Load the HTML template from a file
-        String html = loadHtmlTemplate("asd.html");
+        String html = loadHtmlTemplate("emailConfirmationTemplate.html");
 
         // Replace the link placeholder with the actual link
         html = html.replace("${link}", link);

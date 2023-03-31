@@ -3,6 +3,7 @@ package com.accommodationsite.accommodationreservationapp.controller;
 import com.accommodationsite.accommodationreservationapp.model.Person;
 import com.accommodationsite.accommodationreservationapp.service.EmailSenderService;
 import com.accommodationsite.accommodationreservationapp.service.PersonService;
+import com.accommodationsite.accommodationreservationapp.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class PersonController {
 
     @Autowired
     private EmailSenderService emailSenderService;
+
+    @Autowired
+    private EncryptionUtil encryptionUtil;
 
     private Logger logger = LoggerFactory.getLogger(PersonController.class);
 
@@ -57,7 +61,8 @@ public class PersonController {
         } else {
             personService.addPerson(person);
             try {
-                emailSenderService.sendEmail(person.getEmail(),"Account verification", "http://localhost:4200/user-activation?username="+person.getUsername());
+                String encryptedUserName = encryptionUtil.encrypt(person.getUsername());
+                emailSenderService.sendReactivationEmail(person.getEmail(), "Account verification", "http://localhost:4200/user-activation?username="+encryptedUserName);
             }catch( Exception e ){
                 logger.info("Error Sending Email: " + e.getMessage());
             }
@@ -66,11 +71,12 @@ public class PersonController {
     }
 
     @GetMapping("/accountActivation/{username}")
-    public ResponseEntity<String> accountActivation(@PathVariable("username") String username){
-        if (personService.findPersonByUserName(username) == null || personService.findPersonByUserName(username).getActivated()){
+    public ResponseEntity<String> accountActivation(@PathVariable("username") String username) throws Exception {
+        String decryptedUserName = encryptionUtil.decrypt(username);
+        if (personService.findPersonByUserName(decryptedUserName) == null || personService.findPersonByUserName(decryptedUserName).getActivated()){
             return new ResponseEntity<>("The username does not exists!",HttpStatus.BAD_REQUEST);
         } else {
-            personService.personActivation(username);
+            personService.personActivation(decryptedUserName);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 

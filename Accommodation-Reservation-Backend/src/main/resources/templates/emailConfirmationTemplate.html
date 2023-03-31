@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirm Your Email Address</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #FFFFFF;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #F4F4F4;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 30px auto;
+      max-width: 600px;
+      padding: 30px;
+      text-align: center;
+    }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      padding: 10px;
+      color: #212121;
+      background: #53A84F;
+      border-radius: 10px;
+    }
+    .content {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #707070;
+      text-align: left;
+    }
+    .button {
+      background-color: #53A84F;
+      border-radius: 5px;
+      color: #FFFFFF;
+      font-size: 16px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #438640;
+    }
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+    }
+    .lastSection {
+      font-size: 14px;
+      margin-top: 30px;
+      color: #707070;
+      text-align: center;
+    }
+    .footer a {
+      color: #53A84F;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">Confirm Your Email Address!</div>
+  <div class="content">
+    <p>Thank you for registering for our service. To complete your registration and start using our service, we need to verify your email address. If you didn't register for our service, please ignore this email.</p>
+    <p>Please click the link below to confirm your email address:</p>
+    <div class="buttonContainer">
+      <a href="${link}" class="button">Activate Account</a>
+    </div>
+    <div class="lastSection">
+      <p>You received this email because you just signed up for a new account.</p>
+      <p>If it looks weird, view it in your browser.</p>
+      <a href="http://localhost:4200" target="_blank">Apollo -  Accommodation Reservation Application</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
