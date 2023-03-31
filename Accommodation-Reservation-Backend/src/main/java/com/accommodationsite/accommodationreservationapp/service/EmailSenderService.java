@@ -72,7 +72,7 @@ public class EmailSenderService {
         html = html.replace("${roomSize}", String.valueOf(room.getSize()));
         html = html.replace("${bedSize}", String.valueOf(room.getBedSize()));
         html = html.replace("${price}", String.valueOf(reservation.getPrice()));
-        html = html.replace("${accommodationDescription}", "HERE I HAVE TO ADD THE ACCOMMODATION DESCRIPTION ABOUT CHECKING IN!");
+        html = html.replace("${accommodationDescription}", accommodation.getCheckInDescriptionForEmail());
         helper.setText(html, true);
 
         mailSender.send(message);

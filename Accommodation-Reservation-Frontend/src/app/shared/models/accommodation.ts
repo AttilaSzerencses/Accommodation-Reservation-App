@@ -12,6 +12,7 @@ export interface Accommodation {
     secondImage?: string;
     thirdImage?: string;
     description?: string;
+    checkInDescriptionForEmail?: string;
     city: string;
     address?: Address;
     rooms?: Room[];

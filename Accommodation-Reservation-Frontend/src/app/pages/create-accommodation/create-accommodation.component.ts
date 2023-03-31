@@ -28,6 +28,7 @@ export class CreateAccommodationComponent implements OnInit {
     secondPicture: new FormControl(),
     thirdPicture: new FormControl(),
     description: new FormControl(),
+    checkInDescriptionForEmail: new FormControl()
   });
 
   amenities = [
@@ -122,6 +123,7 @@ export class CreateAccommodationComponent implements OnInit {
     this.accommodationForm.get('street')?.setValue(this.accommodation.address?.street);
     this.accommodationForm.get('houseNumber')?.setValue(this.accommodation.address?.houseNumber);
     this.accommodationForm.get('description')?.setValue(this.accommodation.description);
+    this.accommodationForm.get('checkInDescriptionForEmail')?.setValue(this.accommodation.checkInDescriptionForEmail);
     this.setAmenityFormValues();
   }
 
@@ -176,6 +178,7 @@ export class CreateAccommodationComponent implements OnInit {
         name: this.accommodationForm.get('acoomodationName')?.value,
         phoneNumber: this.accommodationForm.get('phoneNumber')?.value,
         description: this.accommodationForm.get('description')?.value,
+        checkInDescriptionForEmail: this.accommodationForm.get('checkInDescriptionForEmail')?.value,
         city: this.accommodationForm.get('city')?.value,
         address: accommodationAddress,
         amenities: amenitisForCreation,
@@ -207,6 +210,7 @@ export class CreateAccommodationComponent implements OnInit {
       updateAccommodation.name = this.accommodationForm.get('acoomodationName')?.value;
       updateAccommodation.phoneNumber = this.accommodationForm.get('phoneNumber')?.value;
       updateAccommodation.description = this.accommodationForm.get('description')?.value;
+      updateAccommodation.checkInDescriptionForEmail = this.accommodationForm.get('checkInDescriptionForEmail')?.value;
       updateAccommodation.city = this.accommodationForm.get('city')?.value;
       updateAccommodation.address = updatedAccommodationAddress;
       updateAccommodation.amenities = amenitisUpdatedAmenitis;

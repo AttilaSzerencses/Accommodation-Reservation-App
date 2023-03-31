@@ -25,6 +25,7 @@ public class Accommodation implements Serializable {
     private String secondImage;
     private String thirdImage;
     private String description;
+    private String checkInDescriptionForEmail;
     private String city;
 
     //Egy darab szálláshoz egy darab cím tartozhat.
