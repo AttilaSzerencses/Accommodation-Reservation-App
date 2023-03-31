@@ -86,6 +86,15 @@ export class ReservationComponent implements OnInit {
       this.endDate = params['endDate'];
     })
     this.reservedDays = this.calculateDays(this.startDate, this.endDate);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const futureDate = new Date();
+    futureDate.setFullYear(currentDate.getFullYear() + 1, currentDate.getMonth() + 6, 0);
+    let startDate = new Date(this.startDate);
+    let endDate = new Date(this.endDate);
+    if (startDate < currentDate || endDate < currentDate || startDate > futureDate || endDate > futureDate) {
+      window.history.back();
+    }
   }
 
   public afterPayment() {
