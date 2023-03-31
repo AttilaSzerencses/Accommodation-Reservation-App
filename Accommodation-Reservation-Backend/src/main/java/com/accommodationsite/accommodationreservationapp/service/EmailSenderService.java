@@ -65,7 +65,6 @@ public class EmailSenderService {
         html = html.replace("${firstName}", firstName);
         html = html.replace("${accommodationName}", accommodation.getName());
         html = html.replace("${roomName}", room.getName());
-        html = html.replace("${roomImage}", "MAJD IDE JÖN AZ IMAGE"); //TODO IT's not going to work
         html = html.replace("${roomDescription}", room.getDescription());
         html = html.replace("${checkInDate}", reservation.getCheckinDate().toString());
         html = html.replace("${checkOutDate}", reservation.getCheckoutDate().toString());
