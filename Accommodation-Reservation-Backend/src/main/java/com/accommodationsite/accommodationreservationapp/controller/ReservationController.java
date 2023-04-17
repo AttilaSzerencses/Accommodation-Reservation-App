@@ -45,7 +45,7 @@ public class ReservationController {
             Room room = reservation.getRoom();
             Accommodation accommodation = reservation.getRoom().getAccommodation();
             String firstName = reservation.getPerson().getFirstName();
-            emailSenderService.sendReservationEmail(email, "Account verification", room, accommodation, reservation, firstName);
+            emailSenderService.sendReservationEmail(email, "Reservation Confirmation", room, accommodation, reservation, firstName);
         }catch( Exception e ){
             logger.info("Error Sending Email: " + e.getMessage());
         }

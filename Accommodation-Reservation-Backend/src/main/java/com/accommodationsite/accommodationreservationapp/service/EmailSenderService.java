@@ -87,7 +87,7 @@ public class EmailSenderService {
         helper.addInline("qrcode.png", new ByteArrayResource(qrCodeBytes), "image/png");
 
         mailSender.send(message);
-        System.out.println("Reactivation Mail sent successfully!");
+        System.out.println("Reservation confirmation mail sent successfully!");
     }
 
     private String loadHtmlTemplate(String templateName) throws IOException {
