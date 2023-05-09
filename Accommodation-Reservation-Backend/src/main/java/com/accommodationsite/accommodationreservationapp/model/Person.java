@@ -25,7 +25,6 @@ public class Person implements Serializable {
     private String phone;
     private String role;
     private Boolean activated;
-    //Egy darab felhasználóhoz egy darab address tartozhat!
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;

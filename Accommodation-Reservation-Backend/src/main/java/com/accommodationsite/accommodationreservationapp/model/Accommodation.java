@@ -28,20 +28,13 @@ public class Accommodation implements Serializable {
     private String checkInDescriptionForEmail;
     private String city;
 
-    //Egy darab szálláshoz egy darab cím tartozhat.
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    //Egy darab hotelhez, egy darab felhasználó tartozhat.
     @OneToOne(targetEntity = Person.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
-
-//    //Egy darab szálláshoz több darab szoba tartozhat.
-//    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "accomodation_id", referencedColumnName = "id")
-//    private List<Room> rooms;
 
     @ManyToMany(targetEntity = Amenity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "amenities",  referencedColumnName = "id")
