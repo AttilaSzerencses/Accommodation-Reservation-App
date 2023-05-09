@@ -30,19 +30,6 @@ export class AdminComponent implements OnInit {
         this.accommodationsWithWaitingStatus = data;
       }
     });
-    /*this.accommodationService.getAccommodations().toPromise().then(data => {
-      if (data != undefined) {
-        this.accommodationsWithWaitingStatus = data.sort((a, b) => {
-          if (a.status === 'waiting' && b.status !== 'waiting') {
-            return -1; // a should come before b
-          } else if (b.status === 'waiting' && a.status !== 'waiting') {
-            return 1; // b should come before a
-          } else {
-            return 0; // order doesn't matter
-          }
-        });
-      }
-    });*/ //IF I WANT TO LIST ALL THE ACCOMMODATIONS I HAVE TO USE THIS
   }
 
   public getAllRooms() {
